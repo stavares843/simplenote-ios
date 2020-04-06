@@ -56,7 +56,7 @@ jobs:
         path: fastlane/screenshots
 
     - name: Compose
-      run:
+      run: |
         brew install pkg-config imagemagick@6
         BUNDLE_WITH=screenshots bundle install
         bundle exec fastlane create_promo_screenshots
