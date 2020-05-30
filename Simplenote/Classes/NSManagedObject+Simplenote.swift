@@ -1,11 +1,9 @@
-import Foundation
 import CoreData
-
+import Foundation
 
 /// NSManagedObject: Object Conformance
 ///
 extension NSManagedObject {
-
     /// Returns the Entity Name, if available, as specified in the NSEntityDescription. Otherwise, will return
     /// the subclass name.
     ///

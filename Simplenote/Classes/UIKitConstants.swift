@@ -1,7 +1,7 @@
 import Foundation
 
-
 // MARK: - UIKit Constants, so that we don't repeat ourselves forever!
+
 //
 @objcMembers
 class UIKitConstants: NSObject {
@@ -18,7 +18,7 @@ class UIKitConstants: NSObject {
 
     /// Yes. This should be, potentially, an enum. But since we intend to use these constants in ObjC... oh well!
     ///
-    private override init() {
+    override private init() {
         // NO-OP
     }
 }

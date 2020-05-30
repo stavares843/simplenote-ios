@@ -2,19 +2,18 @@ import Foundation
 import MessageUI
 import SafariServices
 
-
 // MARK: - SPFeedbackManager
+
 //
 @objcMembers
 class SPFeedbackManager: NSObject {
-
     /// Ladies and gentlemen, yet another Singleton!
     ///
     static let shared = SPFeedbackManager()
 
     /// Let's just hide the initializer?
     ///
-    private override init() {
+    override private init() {
         // NO-OP
     }
 
@@ -36,12 +35,11 @@ class SPFeedbackManager: NSObject {
     }
 }
 
-
 // MARK: - MFMailComposeViewControllerDelegate
+
 //
 extension SPFeedbackManager: MFMailComposeViewControllerDelegate {
-
-    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
-         controller.dismiss(animated: true, completion: nil)
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith _: MFMailComposeResult, error _: Error?) {
+        controller.dismiss(animated: true, completion: nil)
     }
 }

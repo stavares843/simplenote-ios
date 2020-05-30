@@ -1,10 +1,9 @@
 import Foundation
 
-
 // MARK: - NotesListController
+
 //
 class NotesListController: NSObject {
-
     /// Main Context
     ///
     private let viewContext: NSManagedObjectContext
@@ -96,7 +95,6 @@ class NotesListController: NSObject {
     ///
     var onBatchChanges: ((_ rowChanges: [ResultsObjectChange], _ sectionChanges: [ResultsSectionChange]) -> Void)?
 
-
     /// Designated Initializer
     ///
     init(viewContext: NSManagedObjectContext) {
@@ -107,11 +105,10 @@ class NotesListController: NSObject {
     }
 }
 
-
 // MARK: - Public API
+
 //
 extension NotesListController {
-
     /// Returns the Receiver's Number of Objects
     ///
     @objc
@@ -130,12 +127,12 @@ extension NotesListController {
         switch state {
         case .results:
             return [
-                NotesListSection(title: state.sectionTitleForNotes, objects: notesController.fetchedObjects)
+                NotesListSection(title: state.sectionTitleForNotes, objects: notesController.fetchedObjects),
             ]
         case .searching:
             return [
                 NotesListSection(title: state.sectionTitleForTags, objects: tagsController.fetchedObjects),
-                NotesListSection(title: state.sectionTitleForNotes, objects: notesController.fetchedObjects)
+                NotesListSection(title: state.sectionTitleForNotes, objects: notesController.fetchedObjects),
             ]
         }
     }
@@ -163,13 +160,13 @@ extension NotesListController {
     @objc(indexPathForObject:)
     func indexPath(forObject object: Any) -> IndexPath? {
         switch (state, object) {
-        case (.results, let note as Note):
+        case let (.results, note as Note):
             return notesController.indexPath(forObject: note)
-        case (.searching, let tag as Tag):
+        case let (.searching, tag as Tag):
             return tagsController.fetchedObjects.firstIndex(of: tag).map { row in
                 IndexPath(row: row, section: state.sectionIndexForTags)
             }
-        case (.searching, let note as Note):
+        case let (.searching, note as Note):
             return notesController.fetchedObjects.firstIndex(of: note).map { row in
                 IndexPath(row: row, section: state.sectionIndexForNotes)
             }
@@ -195,11 +192,10 @@ extension NotesListController {
     }
 }
 
-
 // MARK: - Search API
+
 //
 extension NotesListController {
-
     /// Sets the receiver in Search Mode
     ///
     @objc
@@ -229,11 +225,10 @@ extension NotesListController {
     }
 }
 
-
 // MARK: - Convenience APIs
+
 //
 extension NotesListController {
-
     /// Returns the Fetched Note with the specified SimperiumKey (if any)
     ///
     @objc
@@ -244,11 +239,10 @@ extension NotesListController {
     }
 }
 
-
 // MARK: - Private API: ResultsController Refreshing
+
 //
 private extension NotesListController {
-
     func refreshPredicates() {
         notesController.predicate = state.predicateForNotes(filter: filter)
         tagsController.predicate = state.predicateForTags()
@@ -266,18 +260,17 @@ private extension NotesListController {
     }
 }
 
-
 // MARK: - Private API: Realtime Refreshing
+
 //
 private extension NotesListController {
-
     func startListeningToNoteEvents() {
         notesController.onDidChangeObject = { [weak self] change in
-            self?.noteObjectChanges.append( change )
+            self?.noteObjectChanges.append(change)
         }
 
         notesController.onDidChangeSection = { [weak self] change in
-            self?.noteSectionChanges.append( change )
+            self?.noteSectionChanges.append(change)
         }
 
         notesController.onDidChangeContent = { [weak self] in
@@ -287,11 +280,11 @@ private extension NotesListController {
 
     func startListeningToTagEvents() {
         tagsController.onDidChangeObject = { [weak self] change in
-            self?.tagObjectChanges.append( change )
+            self?.tagObjectChanges.append(change)
         }
 
         tagsController.onDidChangeSection = { [weak self] change in
-            self?.tagSectionChanges.append( change )
+            self?.tagSectionChanges.append(change)
         }
 
         tagsController.onDidChangeContent = { [weak self] in
@@ -344,7 +337,7 @@ private extension NotesListController {
     ///
     var sortModeForActiveState: SortMode {
         switch state {
-        case .searching(_):
+        case .searching:
             return searchSortMode
         case .results:
             return sortMode

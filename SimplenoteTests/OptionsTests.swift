@@ -1,12 +1,11 @@
 import Foundation
-import XCTest
 @testable import Simplenote
-
+import XCTest
 
 // MARK: - Options Unit Tests
+
 //
 class OptionsTests: XCTestCase {
-
     private let suiteName = OptionsTests.classNameWithoutNamespaces.debugDescription
     private lazy var defaults = UserDefaults(suiteName: suiteName)!
 
@@ -57,4 +56,3 @@ class OptionsTests: XCTestCase {
         XCTAssert(options.theme == .light)
     }
 }
-

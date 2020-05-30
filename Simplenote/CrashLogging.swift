@@ -1,5 +1,5 @@
-import Foundation
 import AutomatticTracks
+import Foundation
 
 /// This exists to bridge CrashLogging with Objective-C. Once the App Delegate is moved over to Swift,
 /// this shim can be removed, and the cache methods moved to a `CrashLogging` extension. At that time,
@@ -22,7 +22,6 @@ class CrashLoggingShim: NSObject {
 }
 
 private class SNCrashLoggingDataProvider: CrashLoggingDataProvider {
-
     private let simperium: Simperium
 
     init(withSimperium simperium: Simperium) {
@@ -34,7 +33,6 @@ private class SNCrashLoggingDataProvider: CrashLoggingDataProvider {
     }
 
     var userHasOptedOut: Bool {
-
         if let analyticsEnabledSetting = simperium.preferencesObject()?.analytics_enabled {
             return !analyticsEnabledSetting.boolValue
         }
@@ -47,9 +45,8 @@ private class SNCrashLoggingDataProvider: CrashLoggingDataProvider {
     }
 
     var currentUser: TracksUser? {
-
         /// Prefer data from the up-to-date simperium user
-        if let user = self.simperium.user, let email = user.email {
+        if let user = simperium.user, let email = user.email {
             return TracksUser(userID: email, email: email, username: email)
         }
 
@@ -77,7 +74,6 @@ private class SNCrashLoggingDataProvider: CrashLoggingDataProvider {
  SNCrashLoggingDataProvider will use this cache in `currentUser` to fetch data on the user.
  */
 private struct CrashLoggingCache {
-
     struct User: Codable {
         var emailAddress: String?
         var didOptOut: Bool = true

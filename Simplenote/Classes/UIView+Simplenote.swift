@@ -1,11 +1,10 @@
 import Foundation
 import UIKit
 
-
 // MARK: - UIView's Simplenote Methods
+
 //
 extension UIView {
-
     /// Indicates if the receiver has the horizontal compact trait
     ///
     @objc
@@ -44,11 +43,10 @@ extension UIView {
     }
 }
 
-
 // MARK: - UIView Class Methods
+
 //
 extension UIView {
-
     /// Returns the Nib associated with the received: It's filename is expected to match the Class Name
     ///
     @objc

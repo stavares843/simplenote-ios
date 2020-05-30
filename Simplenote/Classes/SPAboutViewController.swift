@@ -1,14 +1,11 @@
 import UIKit
 
-
 class SPAboutViewController: UIViewController {
-    
     private let headerView = UIView()
     private let footerView = UIView()
     private let tableView = UITableView()
     private let containerView = UIStackView()
     private let doneButton = UIButton(type: .custom)
-
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -16,7 +13,7 @@ class SPAboutViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         view.backgroundColor = .simplenoteBlue50Color
 
         setupDoneButton()
@@ -27,11 +24,10 @@ class SPAboutViewController: UIViewController {
     }
 }
 
-
 // MARK: - Configuration
+
 //
 private extension SPAboutViewController {
-
     func setupDoneButton() {
         doneButton.translatesAutoresizingMaskIntoConstraints = false
         doneButton.setTitle(NSLocalizedString("Done", comment: "Verb: Close current view"), for: .normal)
@@ -43,8 +39,8 @@ private extension SPAboutViewController {
 
         NSLayoutConstraint.activate([
             doneButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            doneButton.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor)
-            ])
+            doneButton.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
+        ])
     }
 
     func setupContainerView() {
@@ -59,8 +55,8 @@ private extension SPAboutViewController {
             containerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             containerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             containerView.topAnchor.constraint(equalTo: doneButton.bottomAnchor, constant: -14.0),
-            containerView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -14.0)
-            ])
+            containerView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -14.0),
+        ])
     }
 
     func setupHeaderView() {
@@ -76,16 +72,16 @@ private extension SPAboutViewController {
         NSLayoutConstraint.activate([
             stackView.centerXAnchor.constraint(equalTo: headerView.centerXAnchor),
             stackView.topAnchor.constraint(equalTo: headerView.topAnchor),
-            stackView.bottomAnchor.constraint(equalTo: headerView.bottomAnchor)
-            ])
+            stackView.bottomAnchor.constraint(equalTo: headerView.bottomAnchor),
+        ])
 
         let imageView = UIImageView(image: UIImage(named: "logo_about"))
         imageView.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
             imageView.widthAnchor.constraint(equalToConstant: 100),
-            imageView.heightAnchor.constraint(equalToConstant: 100)
-            ])
+            imageView.heightAnchor.constraint(equalToConstant: 100),
+        ])
 
         stackView.addArrangedSubview(imageView)
 
@@ -99,8 +95,8 @@ private extension SPAboutViewController {
 
         NSLayoutConstraint.activate([
             appNameLabel.widthAnchor.constraint(equalToConstant: 320),
-            appNameLabel.heightAnchor.constraint(equalToConstant: 24)
-            ])
+            appNameLabel.heightAnchor.constraint(equalToConstant: 24),
+        ])
 
         let spacer = UIView()
         spacer.translatesAutoresizingMaskIntoConstraints = false
@@ -118,12 +114,12 @@ private extension SPAboutViewController {
 
         NSLayoutConstraint.activate([
             versionLabel.widthAnchor.constraint(equalToConstant: 320),
-            versionLabel.heightAnchor.constraint(equalToConstant: 14)
-            ])
+            versionLabel.heightAnchor.constraint(equalToConstant: 14),
+        ])
 
         containerView.addArrangedSubview(headerView)
     }
-    
+
     func setupFooterView() {
         footerView.translatesAutoresizingMaskIntoConstraints = false
 
@@ -150,18 +146,18 @@ private extension SPAboutViewController {
         paragraphStyle.alignment = .center
         let serviceString = NSMutableAttributedString(string: String(format: "%@ \u{2022} %@", Constants.privacyString, Constants.termsString),
                                                       attributes: [
-                                                        NSAttributedString.Key.foregroundColor: UIColor.white,
-                                                        NSAttributedString.Key.paragraphStyle: paragraphStyle,
-                                                        NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14)
-        ])
-        
+                                                          NSAttributedString.Key.foregroundColor: UIColor.white,
+                                                          NSAttributedString.Key.paragraphStyle: paragraphStyle,
+                                                          NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14),
+                                                      ])
+
         serviceString.addAttribute(NSAttributedString.Key.link, value: Constants.privacyURLString, range: NSMakeRange(0, Constants.privacyString.count))
         serviceString.addAttribute(NSAttributedString.Key.link, value: Constants.termsURLString, range: NSMakeRange(Constants.privacyString.count + 3, Constants.termsString.count))
         serviceTextView.attributedText = serviceString
-        
-        let linkAttributes: [String : Any] = [NSAttributedString.Key.foregroundColor.rawValue: UIColor.white]
+
+        let linkAttributes: [String: Any] = [NSAttributedString.Key.foregroundColor.rawValue: UIColor.white]
         serviceTextView.linkTextAttributes = convertToOptionalNSAttributedStringKeyDictionary(linkAttributes)
-        
+
         let copyrightLabel = UILabel()
         copyrightLabel.translatesAutoresizingMaskIntoConstraints = false
         copyrightLabel.font = UIFont.systemFont(ofSize: 14)
@@ -178,8 +174,8 @@ private extension SPAboutViewController {
             stackView.topAnchor.constraint(equalTo: footerView.topAnchor),
             stackView.bottomAnchor.constraint(equalTo: footerView.bottomAnchor),
             stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-            ])
+            stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+        ])
     }
 
     func setupTableView() {
@@ -195,62 +191,59 @@ private extension SPAboutViewController {
     }
 }
 
-
 // MARK: - UITableViewDataSource Conformance
+
 //
 extension SPAboutViewController: UITableViewDataSource {
-
-    func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in _: UITableView) -> Int {
         return 1
     }
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
         return Constants.titles.count
     }
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: UITableViewCell.CellStyle.subtitle, reuseIdentifier: "reuseIdentifier")
 
         cell.textLabel?.text = Constants.titles[indexPath.row]
         cell.detailTextLabel?.text = Constants.descriptions[indexPath.row]
-        
+
         cell.textLabel?.textColor = UIColor.white
         cell.detailTextLabel?.textColor = UIColor.white
         cell.backgroundColor = UIColor.clear
-        
+
         let bgColorView = UIView()
         bgColorView.backgroundColor = .simplenoteBlue30Color
         cell.selectedBackgroundView = bgColorView
-        
+
         let arrowAccessoryView = UIImageView(image: UIImage(named: "icon_arrow_top_right"))
         arrowAccessoryView.tintColor = .white
         arrowAccessoryView.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
         cell.accessoryView = arrowAccessoryView
-        
+
         return cell
     }
 }
 
-
 // MARK: - UITableViewDelegate Conformance
+
 //
 extension SPAboutViewController: UITableViewDelegate {
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         UIApplication.shared.open(Constants.urls[indexPath.row])
         tableView.deselectRow(at: indexPath, animated: false)
     }
-    
-    @objc func onDoneTap(_ sender:UIButton) {
+
+    @objc func onDoneTap(_: UIButton) {
         dismiss(animated: true)
     }
 }
 
-
 // MARK: - Private Helpers
+
 //
 private extension SPAboutViewController {
-
     func createCopyrightString() -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy"
@@ -260,30 +253,29 @@ private extension SPAboutViewController {
     // Helper function inserted by Swift 4.2 migrator.
     func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
         guard let input = input else { return nil }
-        return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
+        return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value) })
     }
 }
 
-
 // MARK: - Constants
+
 //
 private enum Constants {
-
-    static let headerHeight: CGFloat    = 170
-    static let footerHeight: CGFloat    = 60
+    static let headerHeight: CGFloat = 170
+    static let footerHeight: CGFloat = 60
     static let doneButtonWidth: CGFloat = 100
 
-    static let privacyString    = NSLocalizedString("Privacy Policy", comment: "Simplenote privacy policy")
+    static let privacyString = NSLocalizedString("Privacy Policy", comment: "Simplenote privacy policy")
     static let privacyURLString = "https://simplenote.com/privacy/"
-    static let termsString      = NSLocalizedString("Terms of Service", comment: "Simplenote terms of service")
-    static let termsURLString   = "https://simplenote.com/terms/"
+    static let termsString = NSLocalizedString("Terms of Service", comment: "Simplenote terms of service")
+    static let termsURLString = "https://simplenote.com/terms/"
 
     static let titles: [String] = [
         NSLocalizedString("Blog", comment: "The Simplenote blog"),
         "Twitter",
         NSLocalizedString("Apps", comment: "Other Simplenote apps"),
         NSLocalizedString("Contribute", comment: "Contribute to the Simplenote apps on github"),
-        NSLocalizedString("Work With Us", comment: "Work at Automattic")
+        NSLocalizedString("Work With Us", comment: "Work at Automattic"),
     ]
 
     static let descriptions: [String] = [
@@ -291,7 +283,7 @@ private enum Constants {
         "@simplenoteapp",
         "simplenote.com",
         "GitHub.com",
-        NSLocalizedString("Are you a developer? Automattic is hiring.", comment: "Automattic hiring description")
+        NSLocalizedString("Are you a developer? Automattic is hiring.", comment: "Automattic hiring description"),
     ]
 
     static let urls: [URL] = [
@@ -299,6 +291,6 @@ private enum Constants {
         URL(string: "https://twitter.com/simplenoteapp")!,
         URL(string: "https://simplenote.com")!,
         URL(string: "https://github.com/automattic/simplenote-ios")!,
-        URL(string: "https://automattic.com/work-with-us")!
+        URL(string: "https://automattic.com/work-with-us")!,
     ]
 }

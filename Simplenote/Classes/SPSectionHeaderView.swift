@@ -1,12 +1,11 @@
 import Foundation
 import UIKit
 
-
 // MARK: - SPSectionHeaderView
+
 //
 @objcMembers
 class SPSectionHeaderView: UITableViewHeaderFooterView {
-
     /// View Containing all of the subviews
     ///
     @IBOutlet private var containerView: UIView!
@@ -29,7 +28,6 @@ class SPSectionHeaderView: UITableViewHeaderFooterView {
     ///
     private lazy var nib = UINib(nibName: type(of: self).classNameWithoutNamespaces, bundle: nil)
 
-
     // MARK: - Overridden Methods
 
     override init(reuseIdentifier: String?) {
@@ -50,11 +48,10 @@ class SPSectionHeaderView: UITableViewHeaderFooterView {
     }
 }
 
-
 // MARK: - Private Methods
+
 //
 private extension SPSectionHeaderView {
-
     /// Sets up the Subviews / Layout
     ///
     func configureSubviews() {
@@ -66,7 +63,7 @@ private extension SPSectionHeaderView {
             containerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             containerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             containerView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
         ])
     }
 

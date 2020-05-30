@@ -1,13 +1,12 @@
-import Foundation
 import CoreSpotlight
+import Foundation
 import UIKit
 
-
 // MARK: - View Lifecycle
+
 //
 extension SPNoteListViewController {
-
-    open override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+    override open func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
 
         coordinator.animate(alongsideTransition: { [weak self] _ in
@@ -20,11 +19,10 @@ extension SPNoteListViewController {
     }
 }
 
-
 // MARK: - Components Initialization
+
 //
 extension SPNoteListViewController {
-
     /// Sets up the Feedback Generator!
     ///
     @objc
@@ -124,14 +122,14 @@ extension SPNoteListViewController {
         NSLayoutConstraint.activate([
             searchBarStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             searchBarStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constants.searchBarInsets.left),
-            searchBarStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: Constants.searchBarInsets.right)
+            searchBarStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: Constants.searchBarInsets.right),
         ])
 
         NSLayoutConstraint.activate([
             navigationBarBackground.topAnchor.constraint(equalTo: view.topAnchor),
             navigationBarBackground.leftAnchor.constraint(equalTo: view.leftAnchor),
             navigationBarBackground.rightAnchor.constraint(equalTo: view.rightAnchor),
-            navigationBarBackground.bottomAnchor.constraint(equalTo: searchBarStackView.bottomAnchor)
+            navigationBarBackground.bottomAnchor.constraint(equalTo: searchBarStackView.bottomAnchor),
         ])
 
         NSLayoutConstraint.activate([
@@ -143,7 +141,7 @@ extension SPNoteListViewController {
 
         NSLayoutConstraint.activate([
             placeholderView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            placeholderView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+            placeholderView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
         ])
 
         NSLayoutConstraint.activate([
@@ -159,7 +157,7 @@ extension SPNoteListViewController {
     func startDisplayingEntities() {
         tableView.dataSource = self
 
-        notesListController.onBatchChanges = { [weak self] (objectChanges, sectionChanges) in
+        notesListController.onBatchChanges = { [weak self] objectChanges, sectionChanges in
             self?.tableView.performBatchChanges(objectChanges: objectChanges, sectionChanges: sectionChanges) { _ in
                 self?.displayPlaceholdersIfNeeded()
             }
@@ -167,11 +165,10 @@ extension SPNoteListViewController {
     }
 }
 
-
 // MARK: - Internal Methods
+
 //
 extension SPNoteListViewController {
-
     /// Adjust the TableView's Insets, so that the content falls below the searchBar
     ///
     @objc
@@ -326,18 +323,17 @@ extension SPNoteListViewController {
     }
 }
 
-
 // MARK: - UIViewControllerPreviewingDelegate Conformance
+
 //
 extension SPNoteListViewController: UIViewControllerPreviewingDelegate {
-
     public func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
         guard tableView.isUserInteractionEnabled,
             isDeletedFilterActive == false,
             let indexPath = tableView.indexPathForRow(at: location),
             let note = notesListController.object(at: indexPath) as? Note
-            else {
-                return nil
+        else {
+            return nil
         }
 
         /// Prevent any Pan gesture from passing thru
@@ -355,7 +351,7 @@ extension SPNoteListViewController: UIViewControllerPreviewingDelegate {
         return editorViewController
     }
 
-    public func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+    public func previewingContext(_: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
         guard let editorViewController = viewControllerToCommit as? SPNoteEditorViewController else {
             return
         }
@@ -365,12 +361,11 @@ extension SPNoteListViewController: UIViewControllerPreviewingDelegate {
     }
 }
 
-
 // MARK: - UIScrollViewDelegate
+
 //
 extension SPNoteListViewController: UIScrollViewDelegate {
-
-    public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+    public func scrollViewWillBeginDragging(_: UIScrollView) {
         guard searchBar.isFirstResponder, searchBar.text?.isEmpty == false else {
             return
         }
@@ -379,16 +374,15 @@ extension SPNoteListViewController: UIScrollViewDelegate {
     }
 }
 
-
 // MARK: - UITableViewDataSource
+
 //
 extension SPNoteListViewController: UITableViewDataSource {
-
-    public func numberOfSections(in tableView: UITableView) -> Int {
+    public func numberOfSections(in _: UITableView) -> Int {
         return notesListController.sections.count
     }
 
-    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    public func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {
         return notesListController.sections[section].numberOfObjects
     }
 
@@ -403,7 +397,7 @@ extension SPNoteListViewController: UITableViewDataSource {
         }
     }
 
-    public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    public func tableView(_: UITableView, titleForHeaderInSection section: Int) -> String? {
         let section = notesListController.sections[section]
         guard section.displaysTitle else {
             return nil
@@ -420,20 +414,19 @@ extension SPNoteListViewController: UITableViewDataSource {
         return tableView.dequeueReusableHeaderFooterView(ofType: SPSectionHeaderView.self)
     }
 
-    public func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+    public func tableView(_: UITableView, canEditRowAt _: IndexPath) -> Bool {
         return true
     }
 
-    public func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+    public func tableView(_: UITableView, canMoveRowAt _: IndexPath) -> Bool {
         return false
     }
 }
 
-
 // MARK: - UITableViewDelegate
+
 //
 extension SPNoteListViewController: UITableViewDelegate {
-
     public func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         // Notes:
         //  1.  No need to estimate. We precalculate the Height elsewhere, and we can return the *Actual* value
@@ -443,7 +436,7 @@ extension SPNoteListViewController: UITableViewDelegate {
         return self.tableView(tableView, heightForRowAt: indexPath)
     }
 
-    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    public func tableView(_: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch notesListController.object(at: indexPath) {
         case is Note:
             return noteRowHeight
@@ -454,7 +447,7 @@ extension SPNoteListViewController: UITableViewDelegate {
         }
     }
 
-    public func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
+    public func tableView(_: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
         guard notesListController.sections[section].displaysTitle else {
             return .leastNormalMagnitude
         }
@@ -462,7 +455,7 @@ extension SPNoteListViewController: UITableViewDelegate {
         return Constants.estimatedHeightForHeaderInSection
     }
 
-    public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    public func tableView(_: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         guard notesListController.sections[section].displaysTitle else {
             return .leastNormalMagnitude
         }
@@ -470,7 +463,7 @@ extension SPNoteListViewController: UITableViewDelegate {
         return UITableView.automaticDimension
     }
 
-    public func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+    public func tableView(_: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         // Swipeable Actions: Only enabled for Notes
         guard let note = notesListController.object(at: indexPath) as? Note else {
             return []
@@ -499,11 +492,10 @@ extension SPNoteListViewController: UITableViewDelegate {
     }
 }
 
-
 // MARK: - TableViewCell(s) Initialization
+
 //
 private extension SPNoteListViewController {
-
     /// Returns a UITableViewCell configured to display the specified Note
     ///
     func dequeueAndConfigureCell(for note: Note, in tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
@@ -548,30 +540,29 @@ private extension SPNoteListViewController {
     func prefixText(for note: Note) -> String? {
         guard case .searching = notesListController.state,
             let date = note.date(for: notesListController.searchSortMode)
-            else {
-                return nil
+        else {
+            return nil
         }
 
         return DateFormatter.Simplenote.listDateFormatter.string(from: date)
     }
 }
 
-
 // MARK: - Row Actions
+
 //
 private extension SPNoteListViewController {
-
     func rowActionsForDeletedNote(_ note: Note) -> [UITableViewRowAction] {
         return [
-            UITableViewRowAction(style: .default, title: ActionTitle.restore, backgroundColor: .simplenoteRestoreActionColor) { (_, _) in
+            UITableViewRowAction(style: .default, title: ActionTitle.restore, backgroundColor: .simplenoteRestoreActionColor) { _, _ in
                 SPObjectManager.shared().restoreNote(note)
                 CSSearchableIndex.default().indexSearchableNote(note)
             },
 
-            UITableViewRowAction(style: .destructive, title: ActionTitle.delete, backgroundColor: .simplenoteDestructiveActionColor) { (_, _) in
+            UITableViewRowAction(style: .destructive, title: ActionTitle.delete, backgroundColor: .simplenoteDestructiveActionColor) { _, _ in
                 SPTracker.trackListNoteDeleted()
                 SPObjectManager.shared().permenentlyDeleteNote(note)
-            }
+            },
         ]
     }
 
@@ -579,19 +570,19 @@ private extension SPNoteListViewController {
         let pinTitle = note.pinned ? ActionTitle.unpin : ActionTitle.pin
 
         return [
-            UITableViewRowAction(style: .destructive, title: ActionTitle.trash, backgroundColor: .simplenoteDestructiveActionColor) { (_, _) in
+            UITableViewRowAction(style: .destructive, title: ActionTitle.trash, backgroundColor: .simplenoteDestructiveActionColor) { _, _ in
                 SPTracker.trackListNoteDeleted()
                 SPObjectManager.shared().trashNote(note)
                 CSSearchableIndex.default().deleteSearchableNote(note)
             },
 
-            UITableViewRowAction(style: .default, title: pinTitle, backgroundColor: .simplenoteSecondaryActionColor) { [weak self] (_, _) in
+            UITableViewRowAction(style: .default, title: pinTitle, backgroundColor: .simplenoteSecondaryActionColor) { [weak self] _, _ in
                 self?.togglePin(note: note)
             },
 
-            UITableViewRowAction(style: .default, title: ActionTitle.share, backgroundColor: .simplenoteTertiaryActionColor) { [weak self] (_, indexPath) in
+            UITableViewRowAction(style: .default, title: ActionTitle.share, backgroundColor: .simplenoteTertiaryActionColor) { [weak self] _, indexPath in
                 self?.share(note: note, from: indexPath)
-            }
+            },
         ]
     }
 
@@ -620,11 +611,10 @@ private extension SPNoteListViewController {
     }
 }
 
-
 // MARK: - Sort Bar
+
 //
 extension SPNoteListViewController {
-
     @objc
     func displaySortBar() {
         // No need to refresh the Table's Bottom Insets. The keyboard will always show!
@@ -639,20 +629,18 @@ extension SPNoteListViewController {
     }
 }
 
-
 // MARK: - Keyboard Handling
+
 //
 extension SPNoteListViewController {
-
     @objc(keyboardWillChangeFrame:)
     func keyboardWillChangeFrame(note: Notification) {
-        
         guard let _ = view.window else {
             // No window means we aren't in the view hierarchy.
             // Asking UITableView to refresh layout when not in the view hierarcy results in console warnings.
             return
         }
-        
+
         guard let keyboardFrame = (note.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
             return
         }
@@ -682,11 +670,10 @@ extension SPNoteListViewController {
     }
 }
 
-
 // MARK: - Search Action Handlers
+
 //
 extension SPNoteListViewController {
-
     @IBAction
     func sortOrderWasPressed() {
         feedbackGenerator.impactOccurred()
@@ -709,15 +696,15 @@ extension SPNoteListViewController {
         popoverPresentationController?.sourceRect = sortBar.dividerView.frame
         popoverPresentationController?.sourceView = sortBar.dividerView
         popoverPresentationController?.permittedArrowDirections = .any
-        self.popoverController = popoverPresentationController
+        popoverController = popoverPresentationController
 
         feedbackGenerator.impactOccurred()
         present(alertController, animated: true, completion: nil)
     }
 }
 
-
 // MARK: - Private Types
+
 //
 private enum ActionTitle {
     static let cancel = NSLocalizedString("Cancel", comment: "Dismissing an interface")
@@ -730,7 +717,6 @@ private enum ActionTitle {
 }
 
 private enum Constants {
-
     /// Section Header's Estimated Height
     ///
     static let estimatedHeightForHeaderInSection = CGFloat(30)

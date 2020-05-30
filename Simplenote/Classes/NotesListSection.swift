@@ -1,10 +1,9 @@
 import Foundation
 
-
 // MARK: - NotesListSection
+
 //
 struct NotesListSection {
-
     /// Section Title
     ///
     let title: String?

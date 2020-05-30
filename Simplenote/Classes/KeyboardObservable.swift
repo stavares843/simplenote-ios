@@ -1,11 +1,9 @@
 import Foundation
 
-
 /// Adopters of this protocol will recieve keyboard-based notifications
 /// by implmenting the provided functions within.
 ///
 public protocol KeyboardObservable: class {
-
     /// Called immediately prior to the display of the keyboard and includes related animation information.
     ///
     /// - Parameters:
@@ -27,11 +25,10 @@ public protocol KeyboardObservable: class {
     func keyboardWillHide(beginFrame: CGRect?, endFrame: CGRect?, animationDuration: TimeInterval?, animationCurve: UInt?)
 }
 
-
 // MARK: - NotificationCenter Helpers
+
 //
 extension KeyboardObservable {
-
     /// Setup the keyboard observers for the provided `NotificationCenter`.
     ///
     /// - Parameter notificationCenter: `NotificationCenter` to register the keyboard observers
@@ -47,7 +44,8 @@ extension KeyboardObservable {
                                        endFrame: notification.keyboardEndFrame(),
                                        animationDuration: notification.keyboardAnimationDuration(),
                                        animationCurve: notification.keyboardAnimationCurve())
-        })
+            }
+        )
 
         notificationCenter.addObserver(
             forName: UIResponder.keyboardWillHideNotification,
@@ -58,9 +56,9 @@ extension KeyboardObservable {
                                        endFrame: notification.keyboardEndFrame(),
                                        animationDuration: notification.keyboardAnimationDuration(),
                                        animationCurve: notification.keyboardAnimationCurve())
-        })
+            }
+        )
     }
-
 
     /// Remove the keyboard observers for the provided `NotificationCenter`.
     ///
@@ -71,41 +69,42 @@ extension KeyboardObservable {
         notificationCenter.removeObserver(
             self,
             name: UIResponder.keyboardWillHideNotification,
-            object: nil)
+            object: nil
+        )
 
         notificationCenter.removeObserver(
             self,
             name: UIResponder.keyboardWillShowNotification,
-            object: nil)
+            object: nil
+        )
     }
 }
 
-
 // MARK: - Notification + UIKeyboardInfo
+
 //
 private extension Notification {
-
     /// Gets the optional CGRect value of the UIKeyboardFrameBeginUserInfoKey from a UIKeyboard notification
     ///
-    func keyboardBeginFrame () -> CGRect? {
+    func keyboardBeginFrame() -> CGRect? {
         return (userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue
     }
 
     /// Gets the optional CGRect value of the UIKeyboardFrameEndUserInfoKey from a UIKeyboard notification
     ///
-    func keyboardEndFrame () -> CGRect? {
+    func keyboardEndFrame() -> CGRect? {
         return (userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
     }
 
     /// Gets the optional AnimationDuration value of the UIKeyboardAnimationDurationUserInfoKey from a UIKeyboard notification
     ///
-    func keyboardAnimationDuration () -> TimeInterval? {
+    func keyboardAnimationDuration() -> TimeInterval? {
         return (userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue
     }
 
     /// Gets the optional AnimationCurve value of the UIKeyboardAnimationCurveUserInfoKey from a UIKeyboard notification
     ///
-    func keyboardAnimationCurve () -> UInt? {
+    func keyboardAnimationCurve() -> UInt? {
         return (userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? NSNumber)?.uintValue
     }
 }

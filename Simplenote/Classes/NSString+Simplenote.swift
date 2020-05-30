@@ -1,10 +1,9 @@
 import Foundation
 
-
 // MARK: - NSString Simplenote Helpers
+
 //
 extension NSString {
-
     /// Returns the full range of the receiver
     ///
     @objc

@@ -1,12 +1,10 @@
-import Foundation
 import CoreData
+import Foundation
 @testable import Simplenote
-
 
 /// MockupStorageManager: InMemory CoreData Stack.
 ///
 class MockupStorageManager {
-
     /// DataModel Name
     ///
     private let name = "Simplenote"
@@ -22,7 +20,7 @@ class MockupStorageManager {
     private(set) lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: name, managedObjectModel: managedModel)
         container.persistentStoreDescriptions = [storeDescription]
-        container.loadPersistentStores { (storeDescription, error) in
+        container.loadPersistentStores { _, error in
             if let error = error as NSError? {
                 fatalError("[MockupStorageManager] Fatal Error: \(error) [\(error.userInfo)]")
             }
@@ -41,7 +39,7 @@ class MockupStorageManager {
     ///
     func reset() {
         let storeCoordinator = persistentContainer.persistentStoreCoordinator
-        let storeDescriptor = self.storeDescription
+        let storeDescriptor = storeDescription
         let viewContext = persistentContainer.viewContext
 
         viewContext.performAndWait {
@@ -54,7 +52,7 @@ class MockupStorageManager {
                 fatalError("☠️ [MockupStorageManager] Cannot Destroy persistentStore! \(error)")
             }
 
-            storeCoordinator.addPersistentStore(with: storeDescriptor) { (_, error) in
+            storeCoordinator.addPersistentStore(with: storeDescriptor) { _, error in
                 guard let error = error else {
                     return
                 }
@@ -73,11 +71,10 @@ class MockupStorageManager {
     }
 }
 
-
 // MARK: - Descriptors
+
 //
 extension MockupStorageManager {
-
     /// Returns the Application's ManagedObjectModel
     ///
     var managedModel: NSManagedObjectModel {
@@ -97,11 +94,10 @@ extension MockupStorageManager {
     }
 }
 
-
 // MARK: - Stack URL's
+
 //
 extension MockupStorageManager {
-
     /// Returns the ManagedObjectModel's URL: Pick this up from the Storage bundle. OKAY?
     ///
     var modelURL: URL {

@@ -1,10 +1,9 @@
 import Foundation
 
-
 // MARK: - UINavigationBar Simplenote Methods
+
 //
 extension UINavigationBar {
-
     /// Applies Simplenote's **LIGHT** Style
     ///
     @objc

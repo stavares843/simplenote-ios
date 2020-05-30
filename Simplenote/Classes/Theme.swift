@@ -1,11 +1,10 @@
 import Foundation
 
-
 // MARK: - Represents all of the available Themes
+
 //
 @objc
 enum Theme: Int, CaseIterable {
-
     /// Darkness!
     ///
     case dark
@@ -17,7 +16,6 @@ enum Theme: Int, CaseIterable {
     /// Matches the System Settings
     ///
     case system
-
 
     /// Returns a localized Description, matching the current rawValue
     ///
@@ -33,9 +31,7 @@ enum Theme: Int, CaseIterable {
     }
 }
 
-
 extension Theme {
-
     static var allThemes: [Theme] {
         return [.dark, .light, .system]
     }

@@ -1,11 +1,10 @@
 import Foundation
 import UIKit
 
-
 // MARK: - Settings: Theme
+
 //
 class SPThemeViewController: UITableViewController {
-
     private var themes: [Theme] {
         if #available(iOS 13.0, *) {
             return Theme.allThemes
@@ -36,14 +35,13 @@ class SPThemeViewController: UITableViewController {
     ///
     var displaysDismissButton = false
 
-
     /// Designated Initializer
     ///
     init() {
         super.init(style: .grouped)
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
@@ -54,16 +52,15 @@ class SPThemeViewController: UITableViewController {
     }
 }
 
-
 // MARK: - UITableViewDelegate Conformance
+
 //
 extension SPThemeViewController {
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    override func numberOfSections(in _: UITableView) -> Int {
         return Constants.numberOfSections
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
         return themes.count
     }
 
@@ -83,11 +80,10 @@ extension SPThemeViewController {
     }
 }
 
-
 // MARK: - Private
+
 //
 private extension SPThemeViewController {
-
     func setupNavigationItem() {
         title = NSLocalizedString("Themes", comment: "Simplenote Themes")
 
@@ -132,9 +128,7 @@ private extension SPThemeViewController {
     }
 }
 
-
 extension SPThemeViewController {
-
     @objc
     func dismissWasPressed() {
         dismiss(animated: true, completion: nil)
@@ -142,6 +136,7 @@ extension SPThemeViewController {
 }
 
 // MARK: - Constants
+
 //
 private enum Constants {
     static let numberOfSections = 1

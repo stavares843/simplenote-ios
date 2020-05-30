@@ -1,14 +1,12 @@
 import Foundation
 
-
 /// This class encapsulates the Note entity. It's the main project (non core data) counterpart.
 ///
 class Note {
-
     /// Note's Simperium Unique Key
     ///
     let simperiumKey: String = {
-        return UUID().uuidString.replacingOccurrences(of: "-", with: "")
+        UUID().uuidString.replacingOccurrences(of: "-", with: "")
     }()
 
     /// Payload
@@ -27,7 +25,6 @@ class Note {
     ///
     let modificationDate = Date()
 
-
     /// Designated Initializer
     ///
     init(content: String, markdown: Bool = false) {
@@ -42,14 +39,14 @@ class Note {
         }
 
         return [
-            "tags":             [],
-            "deleted":          0,
-            "shareURL":         String(),
-            "publishURL":       String(),
-            "content":          content,
-            "systemTags":       systemTags,
-            "creationDate":     creationDate.timeIntervalSince1970,
-            "modificationDate": modificationDate.timeIntervalSince1970
+            "tags": [],
+            "deleted": 0,
+            "shareURL": String(),
+            "publishURL": String(),
+            "content": content,
+            "systemTags": systemTags,
+            "creationDate": creationDate.timeIntervalSince1970,
+            "modificationDate": modificationDate.timeIntervalSince1970,
         ]
     }
 

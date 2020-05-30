@@ -1,11 +1,10 @@
 import Foundation
 import UIKit
 
-
 // MARK: - UIBlurEffect Simplenote Methods
+
 //
 extension UIBlurEffect {
-
     /// Returns a UIBlurEffect instance matching the System preferences
     ///
     @objc

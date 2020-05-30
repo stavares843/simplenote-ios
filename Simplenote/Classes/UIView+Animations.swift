@@ -1,11 +1,10 @@
 import Foundation
 import UIKit
 
-
 // MARK: - UIView's Animation Methods
+
 //
 extension UIView {
-
     /// Animates a visibility switch, when applicable.
     /// - Note: We're animating the Alpha property, and effectively switching the `isHidden` property onCompletion.
     ///

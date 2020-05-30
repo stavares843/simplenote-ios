@@ -1,8 +1,8 @@
 import Foundation
 import UIKit
 
-
 // MARK: - SPRatingsPromptDelegate
+
 //
 @objc
 protocol SPRatingsPromptDelegate: class {
@@ -13,11 +13,10 @@ protocol SPRatingsPromptDelegate: class {
     func dismissRatingsUI()
 }
 
-
 // MARK: - SPRatingsPromptView
+
 //
 class SPRatingsPromptView: UIView {
-
     /// Title
     ///
     @IBOutlet private var messageLabel: UILabel!
@@ -55,7 +54,6 @@ class SPRatingsPromptView: UIView {
     @objc
     weak var delegate: SPRatingsPromptDelegate?
 
-
     // MARK: - Lifecycle
 
     deinit {
@@ -69,16 +67,15 @@ class SPRatingsPromptView: UIView {
         refreshStrigs()
     }
 
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    override func traitCollectionDidChange(_: UITraitCollection?) {
         refreshButtonsStackViewAxis()
     }
 }
 
-
 // MARK: - Private Methods
+
 //
 private extension SPRatingsPromptView {
-
     func refreshStyle() {
         refreshTitleStyle()
         refreshButtonsStyle()
@@ -126,11 +123,10 @@ private extension SPRatingsPromptView {
     }
 }
 
-
 // MARK: - Notifications
+
 //
 private extension SPRatingsPromptView {
-
     func startListeningToNotifications() {
         let nc = NotificationCenter.default
         nc.addObserver(self, selector: #selector(themeDidChange), name: .VSThemeManagerThemeDidChange, object: nil)
@@ -147,9 +143,9 @@ private extension SPRatingsPromptView {
 }
 
 // MARK: - Notifications
+
 //
 private extension SPRatingsPromptView {
-
     @IBAction
     func leftActionWasPressed() {
         switch state {
@@ -175,16 +171,16 @@ private extension SPRatingsPromptView {
     }
 }
 
-
 // MARK: - Constants
+
 //
 private struct Settings {
     static let buttonBorderWidth = CGFloat(1)
     static let buttonCornerRAdius = CGFloat(4)
 }
 
-
 // MARK: - Ratings State
+
 //
 private enum State {
     case initial
@@ -192,9 +188,7 @@ private enum State {
     case disliked
 }
 
-
 private extension State {
-
     var title: String {
         switch self {
         case .initial:

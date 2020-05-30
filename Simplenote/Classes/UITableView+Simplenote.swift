@@ -1,10 +1,9 @@
 import Foundation
 
-
 // MARK: - UITableView Simplenote Methods
+
 //
 extension UITableView {
-
     /// Applies Simplenote's Style for Grouped TableVIews
     ///
     @objc
@@ -32,7 +31,7 @@ extension UITableView {
 
     /// Returns a cell of a given kind, to be displayed at the specified IndexPath
     ///
-    func dequeueReusableCell<T: UITableViewCell>(ofType type: T.Type, for indexPath: IndexPath) -> T {
+    func dequeueReusableCell<T: UITableViewCell>(ofType _: T.Type, for indexPath: IndexPath) -> T {
         guard let cell = dequeueReusableCell(withIdentifier: T.reuseIdentifier, for: indexPath) as? T else {
             fatalError()
         }
@@ -42,7 +41,7 @@ extension UITableView {
 
     /// Returns a Header instance of the specified kind
     ///
-    func dequeueReusableHeaderFooterView<T: UITableViewHeaderFooterView>(ofType type: T.Type) -> T? {
+    func dequeueReusableHeaderFooterView<T: UITableViewHeaderFooterView>(ofType _: T.Type) -> T? {
         return dequeueReusableHeaderFooterView(withIdentifier: T.reuseIdentifier) as? T
     }
 }

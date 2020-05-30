@@ -2,11 +2,10 @@ import Foundation
 import OnePasswordExtension
 import SafariServices
 
-
 // MARK: - SPAuthHandler
+
 //
 class SPAuthHandler {
-
     /// Simperium Authenticator
     ///
     private let simperiumService: SPAuthenticator
@@ -23,7 +22,6 @@ class SPAuthHandler {
         return OnePasswordExtension.shared().isAppExtensionAvailable()
     }
 
-
     /// Designated Initializer.
     ///
     /// - Parameter simperiumService: Reference to a valid SPAuthenticator instance.
@@ -31,7 +29,6 @@ class SPAuthHandler {
     init(simperiumService: SPAuthenticator) {
         self.simperiumService = simperiumService
     }
-
 
     /// Presents the OnePassword Extension for Login.
     ///
@@ -43,19 +40,18 @@ class SPAuthHandler {
     ///     - onCompletion: Closure to be executed on completion.
     ///
     func findOnePasswordLogin(presenter: UIViewController, sender: Any, onCompletion: @escaping (String?, String?, SPAuthError?) -> Void) {
-        onePasswordService.findLogin(forURLString: kOnePasswordSimplenoteURL, for: presenter, sender: sender) { (dictionary, error) in
+        onePasswordService.findLogin(forURLString: kOnePasswordSimplenoteURL, for: presenter, sender: sender) { dictionary, error in
             guard let username = dictionary?[AppExtensionUsernameKey] as? String,
                 let password = dictionary?[AppExtensionPasswordKey] as? String
-                else {
-                    let wrappedError = SPAuthError(onePasswordError: error)
-                    onCompletion(nil, nil, wrappedError)
-                    return
+            else {
+                let wrappedError = SPAuthError(onePasswordError: error)
+                onCompletion(nil, nil, wrappedError)
+                return
             }
 
             onCompletion(username, password, nil)
         }
     }
-
 
     /// Presents the OnePassword Extension for Signup purposes: The user will be allowed to store a given set of credentials.
     ///
@@ -72,27 +68,26 @@ class SPAuthHandler {
         let details = [
             AppExtensionTitleKey: kOnePasswordSimplenoteTitle,
             AppExtensionUsernameKey: username,
-            AppExtensionPasswordKey: password
+            AppExtensionPasswordKey: password,
         ]
 
         let options = [
             AppExtensionGeneratedPasswordMinLengthKey: kOnePasswordGeneratedMinLength,
-            AppExtensionGeneratedPasswordMaxLengthKey: kOnePasswordGeneratedMaxLength
+            AppExtensionGeneratedPasswordMaxLengthKey: kOnePasswordGeneratedMaxLength,
         ]
 
-        onePasswordService.storeLogin(forURLString: kOnePasswordSimplenoteURL, loginDetails: details, passwordGenerationOptions: options, for: presenter, sender: sender) { (dictionary, error) in
+        onePasswordService.storeLogin(forURLString: kOnePasswordSimplenoteURL, loginDetails: details, passwordGenerationOptions: options, for: presenter, sender: sender) { dictionary, error in
             guard let username = dictionary?[AppExtensionUsernameKey] as? String,
                 let password = dictionary?[AppExtensionPasswordKey] as? String
-                else {
-                    let wrappedError = SPAuthError(onePasswordError: error)
-                    onCompletion(nil, nil, wrappedError)
-                    return
+            else {
+                let wrappedError = SPAuthError(onePasswordError: error)
+                onCompletion(nil, nil, wrappedError)
+                return
             }
 
             onCompletion(username, password, nil)
         }
     }
-
 
     /// Authenticates against the Simperium Backend.
     ///
@@ -106,12 +101,11 @@ class SPAuthHandler {
     func loginWithCredentials(username: String, password: String, onCompletion: @escaping (SPAuthError?) -> Void) {
         simperiumService.authenticate(withUsername: username, password: password, success: {
             onCompletion(nil)
-        }, failure: { (responseCode, _) in
+        }, failure: { responseCode, _ in
             let wrappedError = SPAuthError(simperiumLoginErrorCode: Int(responseCode))
             onCompletion(wrappedError)
         })
     }
-
 
     /// Validates a set of credentials against the Simperium Backend.
     ///
@@ -125,12 +119,11 @@ class SPAuthHandler {
     func validateWithCredentials(username: String, password: String, onCompletion: @escaping (SPAuthError?) -> Void) {
         simperiumService.validate(withUsername: username, password: password, success: {
             onCompletion(nil)
-        }, failure: { (responseCode, _) in
+        }, failure: { responseCode, _ in
             let wrappedError = SPAuthError(simperiumLoginErrorCode: Int(responseCode))
             onCompletion(wrappedError)
         })
     }
-
 
     /// Registers a new user in the Simperium Backend.
     ///
@@ -144,12 +137,11 @@ class SPAuthHandler {
     func signupWithCredentials(username: String, password: String, onCompletion: @escaping (SPAuthError?) -> Void) {
         simperiumService.create(withUsername: username, password: password, success: {
             onCompletion(nil)
-        }, failure: { (responseCode, _) in
+        }, failure: { responseCode, _ in
             let wrappedError = SPAuthError(simperiumSignupErrorCode: Int(responseCode))
             onCompletion(wrappedError)
         })
     }
-
 
     /// Presents the Password Reset (Web) Interface
     ///

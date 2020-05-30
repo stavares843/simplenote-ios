@@ -1,10 +1,9 @@
 import Foundation
 
-
 // MARK: - NSPredicate Methods
+
 //
 extension NSPredicate {
-
     /// Returns a collection of NSPredicates that will match, as a compound, a given Search Text
     ///
     @objc(predicateForSearchText:)
@@ -14,7 +13,7 @@ extension NSPredicate {
 
         for keyword in keywords where keyword.isEmpty == false {
             guard let tag = keyword.lowercased().suffix(afterPrefix: lowercasedSearchOperatorForTags) else {
-                output.append( NSPredicate(format: "content CONTAINS[cd] %@", keyword) )
+                output.append(NSPredicate(format: "content CONTAINS[cd] %@", keyword))
                 continue
             }
 
@@ -22,7 +21,7 @@ extension NSPredicate {
                 continue
             }
 
-            output.append( NSPredicate(format: "tags CONTAINS[cd] %@", formattedTag(for: tag)) )
+            output.append(NSPredicate(format: "tags CONTAINS[cd] %@", formattedTag(for: tag)))
         }
 
         guard !output.isEmpty else {
@@ -89,16 +88,15 @@ extension NSPredicate {
 
         return NSCompoundPredicate(andPredicateWithSubpredicates: [
             NSPredicate(format: "name CONTAINS[cd] %@", tag),
-            NSPredicate(format: "name <>[c] %@", tag)
+            NSPredicate(format: "name <>[c] %@", tag),
         ])
     }
 }
 
-
 // MARK: - Private Methods
+
 //
 private extension NSPredicate {
-
     /// Returns the received tag, escaped and surrounded by quotes: ensures only the *exact* tag matches are hit
     ///
     static func formattedTag(for tag: String) -> String {

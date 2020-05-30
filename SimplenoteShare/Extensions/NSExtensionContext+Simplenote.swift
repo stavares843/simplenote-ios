@@ -1,10 +1,9 @@
 import Foundation
 
-
 // MARK: - NSExtensionContext's Simplenote Methods
+
 //
 extension NSExtensionContext {
-
     /// Returns the AttributedContentText stored in the (first) ExtensionItem
     ///
     var attributedContentText: NSAttributedString? {
@@ -23,7 +22,7 @@ extension NSExtensionContext {
         }
 
         return providers.filter { provider in
-            return provider.hasItemConformingToTypeIdentifier(type)
+            provider.hasItemConformingToTypeIdentifier(type)
         }
     }
 

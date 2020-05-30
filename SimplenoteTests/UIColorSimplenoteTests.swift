@@ -1,11 +1,10 @@
-import XCTest
 @testable import Simplenote
-
+import XCTest
 
 // MARK: - UIColor+Simplenote Unit Tests
+
 //
 class UIColorSimplenoteTests: XCTestCase {
-
     /// Verify every single UIColorName in existance yields a valid UIColor instancce
     ///
     func testEverySingleUIColorNameEffectivelyYieldsSomeUIColorInstance() {

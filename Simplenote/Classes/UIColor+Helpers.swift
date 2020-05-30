@@ -1,11 +1,10 @@
 import Foundation
 import UIKit
 
-
 // MARK: - UIColor Simplenote's Helpers
+
 //
 extension UIColor {
-
     /// Returns an UIImage representation of the receiver, with the specified size, and Dark Mode support.
     ///
     func dynamicImageRepresentation(size: CGSize = CGSize(width: 1, height: 1)) -> UIImage {
@@ -33,11 +32,10 @@ extension UIColor {
     }
 }
 
-
 // MARK: - HTML Colors
+
 //
 extension UIColor {
-
     /// Initializes a new UIColor instance with the specified HexString Code.
     ///
     convenience init(hexString: String, alpha: CGFloat = 1.0) {
@@ -50,7 +48,7 @@ extension UIColor {
         var color: UInt32 = 0
         scanner.scanHexInt32(&color)
 
-        let mask = 0x000000FF
+        let mask = 0x0000_00FF
         let r = Int(color >> 16) & mask
         let g = Int(color >> 8) & mask
         let b = Int(color) & mask

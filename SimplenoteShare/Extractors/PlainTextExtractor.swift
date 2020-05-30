@@ -1,11 +1,10 @@
 import Foundation
 import MobileCoreServices
 
-
 // MARK: - PlainTextExtractor
+
 //
 struct PlainTextExtractor: Extractor {
-
     /// Accepted File Extension
     ///
     let acceptedType = kUTTypePlainText as String
@@ -24,7 +23,7 @@ struct PlainTextExtractor: Extractor {
             return
         }
 
-        provider.loadItem(forTypeIdentifier: acceptedType, options: nil) { (payload, _) in
+        provider.loadItem(forTypeIdentifier: acceptedType, options: nil) { payload, _ in
             guard let content = payload as? String else {
                 onCompletion(nil)
                 return

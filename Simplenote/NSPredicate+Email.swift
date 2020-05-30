@@ -1,10 +1,9 @@
 import Foundation
 
-
 // MARK: - NSPredicate Validation Methods
+
 //
 extension NSPredicate {
-
     /// Returns a NSPredicate capable of validating Email Addressess
     ///
     static func predicateForEmailValidation() -> NSPredicate {

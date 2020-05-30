@@ -2,11 +2,10 @@ import Foundation
 import MobileCoreServices
 import ZIPFoundation
 
-
 // MARK: - URLExtractor
+
 //
 struct URLExtractor: Extractor {
-
     /// Accepted File Extension
     ///
     let acceptedType = kUTTypeURL as String
@@ -25,7 +24,7 @@ struct URLExtractor: Extractor {
             return
         }
 
-        provider.loadItem(forTypeIdentifier: acceptedType, options: nil) { (payload, _) in
+        provider.loadItem(forTypeIdentifier: acceptedType, options: nil) { payload, _ in
             guard let url = payload as? URL else {
                 onCompletion(nil)
                 return
@@ -37,11 +36,10 @@ struct URLExtractor: Extractor {
     }
 }
 
-
 // MARK: - Loading Notes from a file!
+
 //
 private extension URLExtractor {
-
     /// Loads the contents from the specified file, and returns a Note instance with its contents
     ///
     func loadNote(from url: URL) -> Note? {
@@ -108,11 +106,10 @@ private extension URLExtractor {
     }
 }
 
-
 // MARK: - Fallback: Handling external URL(s)
+
 //
 private extension URLExtractor {
-
     /// Builds a Note for an external link
     ///
     func buildExternalLinkNote(with url: URL, context: NSExtensionContext) -> Note? {
@@ -130,8 +127,8 @@ private extension URLExtractor {
     }
 }
 
-
 // MARK: - Path Extensions
+
 //
 private enum PathExtension: String {
     case bearnote

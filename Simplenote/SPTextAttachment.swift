@@ -1,11 +1,10 @@
 import UIKit
 
-
 // MARK: - SPTextAttachment
+
 //
 @objcMembers
 class SPTextAttachment: NSTextAttachment {
-
     /// Extra Sizing Points to be appled over the actual Sizing Font Size
     ///
     var extraDimensionPoints: CGFloat = 4
@@ -30,10 +29,9 @@ class SPTextAttachment: NSTextAttachment {
     ///
     var sizingFont: UIFont = .preferredFont(forTextStyle: .headline)
 
-
     // MARK: - Overridden Methods
 
-    override func attachmentBounds(for textContainer: NSTextContainer?, proposedLineFragment lineFrag: CGRect, glyphPosition position: CGPoint, characterIndex charIndex: Int) -> CGRect {
+    override func attachmentBounds(for _: NSTextContainer?, proposedLineFragment _: CGRect, glyphPosition _: CGPoint, characterIndex _: Int) -> CGRect {
         let dimension = sizingFont.pointSize + extraDimensionPoints
         let offsetY = round((sizingFont.capHeight - dimension) * 0.5)
 
@@ -41,11 +39,10 @@ class SPTextAttachment: NSTextAttachment {
     }
 }
 
-
 // MARK: - Private
+
 //
 private extension SPTextAttachment {
-
     func refreshImage() {
         guard let tintColor = tintColor else {
             return

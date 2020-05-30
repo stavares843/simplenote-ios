@@ -1,12 +1,11 @@
 import Foundation
 import UIKit
 
-
 // MARK: - SPNoteTableViewCell
+
 //
 @objcMembers
 class SPNoteTableViewCell: UITableViewCell {
-
     /// Master View
     ///
     @IBOutlet private var titleLabel: UILabel!
@@ -118,8 +117,6 @@ class SPNoteTableViewCell: UITableViewCell {
         .zero
     }
 
-
-
     /// Deinitializer
     ///
     deinit {
@@ -132,7 +129,6 @@ class SPNoteTableViewCell: UITableViewCell {
         super.init(coder: aDecoder)
         startListeningToNotifications()
     }
-
 
     // MARK: - Overridden Methods
 
@@ -167,9 +163,7 @@ class SPNoteTableViewCell: UITableViewCell {
                                              highlighing: keywords,
                                              highlightColor: keywordsTintColor,
                                              paragraphStyle: Style.paragraphStyle)
-
         }
-
     }
 
     /// Refreshes the Body AttributedString: We'll consider Keyword Highlight and Text Attachments (bullets)
@@ -202,11 +196,10 @@ class SPNoteTableViewCell: UITableViewCell {
     }
 }
 
-
 // MARK: - Private Methods: Initialization
+
 //
 private extension SPNoteTableViewCell {
-
     /// Setup: Layout Margins
     ///
     func setupMargins() {
@@ -228,11 +221,10 @@ private extension SPNoteTableViewCell {
     }
 }
 
-
 // MARK: - Notifications
+
 //
 private extension SPNoteTableViewCell {
-
     /// Wires the (related) notifications to their handlers
     ///
     func startListeningToNotifications() {
@@ -250,11 +242,10 @@ private extension SPNoteTableViewCell {
     }
 }
 
-
 // MARK: - Private Methods: Skinning
+
 //
 private extension SPNoteTableViewCell {
-
     /// Refreshes the current Style current style
     ///
     func refreshStyle() {
@@ -283,11 +274,10 @@ private extension SPNoteTableViewCell {
     }
 }
 
-
 // MARK: - SPNoteTableViewCell
+
 //
 extension SPNoteTableViewCell {
-
     /// TableView's Separator Insets: Expected to align **exactly** with the label(s) Leading.
     /// In order to get the TableView to fully respect this the following must be fulfilled:
     ///
@@ -321,11 +311,10 @@ extension SPNoteTableViewCell {
     }
 }
 
-
 // MARK: - Cell Styles
+
 //
 private enum Style {
-
     /// Accessory's Dimension, based on the (current) Headline Font Size
     ///
     static var accessoryImageDimension: CGFloat {
@@ -411,12 +400,10 @@ private enum Style {
     }
 }
 
-
-
 // MARK: - NSAttributedString Private Methods
+
 //
 private extension NSAttributedString {
-
     /// Returns a NSAttributedString instance, stylizing the receiver with the current Highlighted Keywords + Font + Colors
     ///
     static func previewString(from string: String,
@@ -424,8 +411,7 @@ private extension NSAttributedString {
                               textColor: UIColor,
                               highlighing keywords: String?,
                               highlightColor: UIColor,
-                              paragraphStyle: NSParagraphStyle) -> NSAttributedString
-    {
+                              paragraphStyle: NSParagraphStyle) -> NSAttributedString {
         let output = NSMutableAttributedString(string: string, attributes: [
             .font: font,
             .foregroundColor: textColor,

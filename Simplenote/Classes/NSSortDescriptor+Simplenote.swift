@@ -1,10 +1,9 @@
 import Foundation
 
-
 // MARK: - SortMode List Methods
+
 //
 extension NSSortDescriptor {
-
     /// Returns a NSSortDescriptor, to be applied over Note collections, so that the resulting collection reflects the specified `SortMode`
     ///
     static func descriptorForNotes(sortMode: SortMode) -> NSSortDescriptor {
@@ -15,19 +14,19 @@ extension NSSortDescriptor {
         switch sortMode {
         case .alphabeticallyAscending:
             sortKeySelector = #selector(getter: Note.content)
-            sortSelector    = #selector(NSString.caseInsensitiveCompare)
+            sortSelector = #selector(NSString.caseInsensitiveCompare)
         case .alphabeticallyDescending:
             sortKeySelector = #selector(getter: Note.content)
-            sortSelector    = #selector(NSString.caseInsensitiveCompare)
-            ascending       = false
+            sortSelector = #selector(NSString.caseInsensitiveCompare)
+            ascending = false
         case .createdNewest:
             sortKeySelector = #selector(getter: Note.creationDate)
-            ascending       = false
+            ascending = false
         case .createdOldest:
             sortKeySelector = #selector(getter: Note.creationDate)
         case .modifiedNewest:
             sortKeySelector = #selector(getter: Note.modificationDate)
-            ascending       = false
+            ascending = false
         case .modifiedOldest:
             sortKeySelector = #selector(getter: Note.modificationDate)
         }

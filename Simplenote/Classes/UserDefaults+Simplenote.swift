@@ -1,7 +1,7 @@
 import Foundation
 
-
 // MARK: - Simplenote UserDefaults Keys
+
 //
 extension UserDefaults {
     enum Key: String {
@@ -17,11 +17,10 @@ extension UserDefaults {
     }
 }
 
-
 // MARK: - Convenience Methods
+
 //
 extension UserDefaults {
-
     /// Returns the Booolean associated with the specified Key.
     ///
     func bool(forKey key: Key) -> Bool {

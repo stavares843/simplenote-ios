@@ -1,6 +1,5 @@
 import UIKit
 
-
 /// Direction to transition from/to.
 ///
 /// - left: Enter/leave screen via the left edge.
@@ -15,7 +14,6 @@ enum Direction {
     case bottom
 }
 
-
 /// Animator that animates the presented View Controller from/to a specific `Direction`.
 ///
 final class ExtensionPresentationAnimator: NSObject {
@@ -29,12 +27,11 @@ final class ExtensionPresentationAnimator: NSObject {
     }
 }
 
-
 // MARK: - UIViewControllerAnimatedTransitioning Conformance
+
 //
 extension ExtensionPresentationAnimator: UIViewControllerAnimatedTransitioning {
-
-    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
+    func transitionDuration(using _: UIViewControllerContextTransitioning?) -> TimeInterval {
         return Constants.animationDuration
     }
 
@@ -72,8 +69,8 @@ extension ExtensionPresentationAnimator: UIViewControllerAnimatedTransitioning {
     }
 }
 
-
 // MARK: - Constants
+
 //
 private struct Constants {
     static let animationDuration: Double = 0.33

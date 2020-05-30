@@ -1,12 +1,11 @@
 import Foundation
 import UIKit
 
-
 // MARK: - SPTagTableViewCell
+
 //
 @objcMembers
 class SPTagTableViewCell: UITableViewCell {
-
     /// Left UIImageView
     ///
     @IBOutlet private var leftImageView: UIImageView!
@@ -56,7 +55,6 @@ class SPTagTableViewCell: UITableViewCell {
         }
     }
 
-
     /// Deinitializer
     ///
     deinit {
@@ -69,7 +67,6 @@ class SPTagTableViewCell: UITableViewCell {
         super.init(coder: aDecoder)
         startListeningToNotifications()
     }
-
 
     // MARK: - Overridden Methods
 
@@ -87,11 +84,10 @@ class SPTagTableViewCell: UITableViewCell {
     }
 }
 
-
 // MARK: - Private Methods
+
 //
 private extension SPTagTableViewCell {
-
     /// Setup: Layout Margins
     ///
     func setupMargins() {
@@ -124,11 +120,10 @@ private extension SPTagTableViewCell {
     }
 }
 
-
 // MARK: - Notifications
+
 //
 private extension SPTagTableViewCell {
-
     /// Wires the (related) notifications to their handlers
     ///
     func startListeningToNotifications() {
@@ -146,11 +141,10 @@ private extension SPTagTableViewCell {
     }
 }
 
-
 // MARK: - Static!
+
 //
 extension SPTagTableViewCell {
-
     /// Returns the Height that the receiver would require to be rendered
     ///
     /// Note: Why these calculations? why not Autosizing cells?. Well... Performance.
@@ -164,11 +158,10 @@ extension SPTagTableViewCell {
     }
 }
 
-
 // MARK: - Cell Styles
+
 //
 private enum Style {
-
     /// Accessory's Minimum Size
     ///
     static let imageMinimumSize = CGFloat(24)

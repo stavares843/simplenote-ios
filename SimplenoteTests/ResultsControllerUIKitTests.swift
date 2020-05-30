@@ -1,11 +1,9 @@
-import XCTest
 @testable import Simplenote
-
+import XCTest
 
 /// StoresManager Unit Tests
 ///
 class ResultsControllerUIKitTests: XCTestCase {
-
     /// Mockup StorageManager
     ///
     private var storageManager: MockupStorageManager!
@@ -18,8 +16,8 @@ class ResultsControllerUIKitTests: XCTestCase {
     ///
     private var resultsController: ResultsController<Note>!
 
-
     // MARK: - Overridden Methods
+
     override func setUp() {
         storageManager = MockupStorageManager()
         tableView = MockupTableView()
@@ -50,7 +48,6 @@ class ResultsControllerUIKitTests: XCTestCase {
 
         try? resultsController.performFetch()
     }
-
 
     /// Verifies that `beginUpdates` + `endUpdates` are called in sequence.
     ///
@@ -96,7 +93,6 @@ class ResultsControllerUIKitTests: XCTestCase {
         storageManager.insertSampleNote()
         waitForExpectations(timeout: Constants.expectationTimeout, handler: nil)
     }
-
 
     /// Verifies that deleted entities result in `tableView.deleteRows`.
     ///
@@ -158,14 +154,14 @@ class ResultsControllerUIKitTests: XCTestCase {
         let expectation = self.expectation(description: "SectionKeyPath Update Results in New Section")
 
         let first = storageManager.insertSampleNote()
-        let _ = storageManager.insertSampleNote()
+        _ = storageManager.insertSampleNote()
         try? storageManager.viewContext.save()
 
-        tableView.onInsertedSections = { indexSet in
+        tableView.onInsertedSections = { _ in
             expectation.fulfill()
         }
 
-        tableView.onDeletedSections = { indexSet in
+        tableView.onDeletedSections = { _ in
             XCTFail()
         }
 
@@ -182,11 +178,11 @@ class ResultsControllerUIKitTests: XCTestCase {
         let first = storageManager.insertSampleNote()
         try? storageManager.viewContext.save()
 
-        tableView.onInsertedSections = { indexSet in
+        tableView.onInsertedSections = { _ in
             XCTFail()
         }
 
-        tableView.onDeletedSections = { indexSet in
+        tableView.onDeletedSections = { _ in
             expectation.fulfill()
         }
 

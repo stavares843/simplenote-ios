@@ -1,8 +1,8 @@
 import Foundation
 import UIKit
 
-
 // MARK: - Simplenote Named Images
+
 //
 @objc
 enum UIImageName: Int, CaseIterable {
@@ -47,11 +47,10 @@ enum UIImageName: Int, CaseIterable {
     case visibilityOff
 }
 
-
 // MARK: - Public Methods
+
 //
 extension UIImageName {
-
     /// Light Asset Filename
     ///
     var lightAssetFilename: String {

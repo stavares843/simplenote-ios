@@ -1,11 +1,10 @@
 import Foundation
 import UIKit
 
-
 // MARK: - UITextView's Simplenote Methods
+
 //
 extension UITextView {
-
     /// Indicates if the receiver contains selected text
     ///
     @objc

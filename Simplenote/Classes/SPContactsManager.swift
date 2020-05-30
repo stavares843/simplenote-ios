@@ -6,14 +6,12 @@
 //  Copyright © 2016 Automattic. All rights reserved.
 //
 
-import Foundation
 import Contacts
-
+import Foundation
 
 /// Contacts Helper
 ///
 class SPContactsManager: NSObject {
-
     /// Checks if we've got permission to access the Contacts Store, or not
     ///
     @objc var authorized: Bool {
@@ -33,7 +31,6 @@ class SPContactsManager: NSObject {
     fileprivate var status: CNAuthorizationStatus {
         return CNContactStore.authorizationStatus(for: .contacts)
     }
-
 
     /// Deinitializer
     ///
@@ -55,7 +52,7 @@ class SPContactsManager: NSObject {
             return
         }
 
-        store.requestAccess(for: .contacts) { (success, error) in
+        store.requestAccess(for: .contacts) { success, _ in
             completion?(success)
         }
     }
@@ -69,18 +66,15 @@ class SPContactsManager: NSObject {
 
         let normalizedKeyword = keyword.lowercased()
         return people.filter { person in
-            return person.email.lowercased().contains(normalizedKeyword) ||
+            person.email.lowercased().contains(normalizedKeyword) ||
                 person.name.lowercased().contains(normalizedKeyword)
         }
     }
 }
 
-
-
 /// Contacts Helper
 ///
 private extension SPContactsManager {
-
     /// Returns a collection of all of the PersonTag's.
     ///
     func loadPeopleIfNeeded() -> [PersonTag]? {
@@ -122,13 +116,13 @@ private extension SPContactsManager {
     private func loadContacts() -> [CNContact] {
         let keysToFetch = [
             CNContactFormatter.descriptorForRequiredKeys(for: .fullName),
-            CNContactEmailAddressesKey as CNKeyDescriptor
+            CNContactEmailAddressesKey as CNKeyDescriptor,
         ]
         let request = CNContactFetchRequest(keysToFetch: keysToFetch)
         var contacts = [CNContact]()
 
         do {
-            try store.enumerateContacts(with: request) { (contact, _) in
+            try store.enumerateContacts(with: request) { contact, _ in
                 contacts.append(contact)
             }
         } catch {

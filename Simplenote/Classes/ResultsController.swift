@@ -1,16 +1,15 @@
-import Foundation
 import CoreData
-
+import Foundation
 
 // MARK: - Aliases
+
 //
 typealias ResultsSectionInfo = NSFetchedResultsSectionInfo
 
-
 // MARK: - ResultsController
+
 //
 class ResultsController<T: NSManagedObject> {
-
     /// FetchedResultsController Delegate Wrapper.
     ///
     private let internalDelegate = FetchedResultsControllerDelegateWrapper()
@@ -74,7 +73,6 @@ class ResultsController<T: NSManagedObject> {
     ///
     var onDidChangeSection: ((_ change: ResultsSectionChange) -> Void)?
 
-
     /// Designated Initializer
     ///
     ///  - viewContext: Main Thread's MOC
@@ -87,7 +85,6 @@ class ResultsController<T: NSManagedObject> {
          matching predicate: NSPredicate? = nil,
          sortedBy sortDescriptors: [NSSortDescriptor],
          limit: Int = .zero) {
-
         assert(viewContext.concurrencyType == .mainQueueConcurrencyType)
 
         resultsController = {
@@ -107,11 +104,10 @@ class ResultsController<T: NSManagedObject> {
     }
 }
 
-
 // MARK: - Public Methods
+
 //
 extension ResultsController {
-
     /// Executes the fetch request on the store to get objects.
     ///
     func performFetch() throws {
@@ -149,11 +145,10 @@ extension ResultsController {
     }
 }
 
-
 // MARK: - Private Methods
+
 //
 private extension ResultsController {
-
     /// Initializes the FetchedResultsController
     ///
     func setupResultsController() {
@@ -171,29 +166,29 @@ private extension ResultsController {
             self?.onDidChangeContent?()
         }
 
-        internalDelegate.onDidChangeObject = { [weak self] (_, type, indexPath, newIndexPath) in
+        internalDelegate.onDidChangeObject = { [weak self] _, type, indexPath, newIndexPath in
             let change: ResultsObjectChange
 
             // Seriously, Apple?
             // https://developer.apple.com/library/archive/releasenotes/iPhone/NSFetchedResultsChangeMoveReportedAsNSFetchedResultsChangeUpdate/index.html
             let fixedType: NSFetchedResultsChangeType = {
-                guard type == .update && newIndexPath != nil && newIndexPath != indexPath else {
+                guard type == .update, newIndexPath != nil, newIndexPath != indexPath else {
                     return type
                 }
                 return .move
             }()
 
             switch (fixedType, indexPath, newIndexPath) {
-            case (.delete, .some(let indexPath), _):
+            case let (.delete, .some(indexPath), _):
                 change = .delete(indexPath: indexPath)
 
-            case (.insert, _, .some(let newIndexPath)):
+            case let (.insert, _, .some(newIndexPath)):
                 change = .insert(indexPath: newIndexPath)
 
-            case (.move, .some(let oldIndexPath), .some(let newIndexPath)):
+            case let (.move, .some(oldIndexPath), .some(newIndexPath)):
                 change = .move(oldIndexPath: oldIndexPath, newIndexPath: newIndexPath)
 
-            case (.update, .some(let indexPath), _):
+            case let (.update, .some(indexPath), _):
                 change = .update(indexPath: indexPath)
 
             default:
@@ -204,7 +199,7 @@ private extension ResultsController {
             self?.onDidChangeObject?(change)
         }
 
-        internalDelegate.onDidChangeSection = { [weak self] (section, sectionIndex, type) in
+        internalDelegate.onDidChangeSection = { [weak self] _, sectionIndex, type in
             let change: ResultsSectionChange
             switch type {
             case .delete:

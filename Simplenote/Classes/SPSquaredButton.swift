@@ -1,11 +1,10 @@
 import Foundation
 
-
 // MARK: - SPSquaredButton: Simple convenience UIButton subclass, with a default corner radius
+
 //
 @IBDesignable
 class SPSquaredButton: UIButton {
-
     /// Default Radius
     ///
     private let defaultCornerRadius = CGFloat(4)
@@ -34,11 +33,10 @@ class SPSquaredButton: UIButton {
     }
 }
 
-
 // MARK: - Private Methods
+
 //
 private extension SPSquaredButton {
-
     func setupStyle() {
         cornerRadius = defaultCornerRadius
     }

@@ -1,11 +1,10 @@
 import Foundation
 
-
 // MARK: - SPTextInputViewDelegate
+
 //
 @objc
-protocol SPTextInputViewDelegate : NSObjectProtocol {
-
+protocol SPTextInputViewDelegate: NSObjectProtocol {
     @objc optional
     func textInputDidBeginEditing(_ textInput: SPTextInputView)
 
@@ -22,13 +21,12 @@ protocol SPTextInputViewDelegate : NSObjectProtocol {
     func textInput(_ textInput: SPTextInputView, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
 }
 
-
 // MARK: - SPTextInputView:
+
 //         Renders a custom UITextView with bezel. When becomes the first responder, the border color will be refreshed.
 //
 @IBDesignable
 class SPTextInputView: UIView {
-
     /// Internal TextField
     ///
     private let textField = SPTextField()
@@ -228,7 +226,6 @@ class SPTextInputView: UIView {
     ///
     weak var delegate: SPTextInputViewDelegate?
 
-
     // MARK: - Initializers
 
     override init(frame: CGRect) {
@@ -245,7 +242,6 @@ class SPTextInputView: UIView {
         refreshBorderStyle()
     }
 
-
     // MARK: - Public Methods
 
     @discardableResult
@@ -254,11 +250,10 @@ class SPTextInputView: UIView {
     }
 }
 
-
 // MARK: - Private
+
 //
 private extension SPTextInputView {
-
     func setupSubviews() {
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.delegate = self
@@ -275,57 +270,55 @@ private extension SPTextInputView {
             textField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: Defaults.insets.right),
             textField.topAnchor.constraint(equalTo: topAnchor, constant: Defaults.insets.top),
             textField.bottomAnchor.constraint(equalTo: bottomAnchor, constant: Defaults.insets.bottom),
-            ])
+        ])
     }
 
     func refreshBorderStyle() {
         let borderColor = inErrorState ? borderColorError
-                            : (textField.isFirstResponder ? borderColorEnabled : borderColorDisabled)
+            : (textField.isFirstResponder ? borderColorEnabled : borderColorDisabled)
         layer.borderColor = borderColor?.cgColor
         layer.cornerRadius = borderCornerRadius
         layer.borderWidth = borderWidth
     }
 }
 
-
 // MARK: - Relaying editingChanged Events
+
 //
 extension SPTextInputView {
-
-    @objc func textFieldDidChange(_ textField: UITextField) {
+    @objc func textFieldDidChange(_: UITextField) {
         delegate?.textInputDidChange?(self)
     }
 }
 
-
 // MARK: - UITextFieldDelegate
+
 //
 extension SPTextInputView: UITextFieldDelegate {
-
-    func textFieldDidBeginEditing(_ textField: UITextField) {
+    func textFieldDidBeginEditing(_: UITextField) {
         refreshBorderStyle()
         delegate?.textInputDidBeginEditing?(self)
     }
 
-    func textFieldDidEndEditing(_ textField: UITextField) {
+    func textFieldDidEndEditing(_: UITextField) {
         delegate?.textInputDidBeginEditing?(self)
         refreshBorderStyle()
     }
 
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_: UITextField) -> Bool {
         return delegate?.textInputShouldReturn?(self) ?? true
     }
 
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    func textField(_: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         return delegate?.textInput?(self, shouldChangeCharactersIn: range, replacementString: string) ?? true
     }
 }
 
-
 // MARK: - Default Settings
+
 //
 private enum Defaults {
     static let cornerRadius = CGFloat(4)
-    static let borderWidth  = CGFloat(1)
-    static let insets       = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 0)
+    static let borderWidth = CGFloat(1)
+    static let insets = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 0)
 }

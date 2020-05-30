@@ -1,11 +1,9 @@
 import Foundation
 
-
 /// The purpose of this class is to encapsulate NSURLSession's interaction code, required to upload
 /// a note to Simperium's REST endpoint.
 ///
 class Uploader: NSObject {
-
     /// Simperium's Token
     ///
     private let token: String
@@ -16,8 +14,8 @@ class Uploader: NSObject {
         token = simperiumToken
     }
 
-
     // MARK: - Public Methods
+
     func send(_ note: Note) {
         // Build the targetURL
         let endpoint = String(format: "%@/%@/%@/i/%@", kSimperiumBaseURL, SPCredentials.simperiumAppID, Settings.bucketName, note.simperiumKey)
@@ -38,38 +36,36 @@ class Uploader: NSObject {
     }
 }
 
-
 // MARK: - URLSessionDelegate
+
 //
 extension Uploader: URLSessionDelegate {
-
     @objc
-    func urlSession(_ session: URLSession, didBecomeInvalidWithError error: Error?) {
+    func urlSession(_: URLSession, didBecomeInvalidWithError error: Error?) {
         print("<> Uploader.didBecomeInvalidWithError: \(String(describing: error))")
     }
 
     @objc
-    func urlSessionDidFinishEvents(forBackgroundURLSession session: URLSession) {
+    func urlSessionDidFinishEvents(forBackgroundURLSession _: URLSession) {
         print("<> Uploader.URLSessionDidFinishEventsForBackgroundURLSession")
     }
 }
 
-
 // MARK: - URLSessionTaskDelegate
+
 //
 extension Uploader: URLSessionTaskDelegate {
-
     @objc
-    func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
+    func urlSession(_: URLSession, task _: URLSessionTask, didCompleteWithError error: Error?) {
         print("<> Uploader.didCompleteWithError: \(String(describing: error))")
     }
 }
 
-
 // MARK: - Settings
+
 //
 private struct Settings {
-    static let authHeader  = "X-Simperium-Token"
-    static let bucketName  = "note"
-    static let httpMethod  = "POST"
+    static let authHeader = "X-Simperium-Token"
+    static let bucketName = "note"
+    static let httpMethod = "POST"
 }

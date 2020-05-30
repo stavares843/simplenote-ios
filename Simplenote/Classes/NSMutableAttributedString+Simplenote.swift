@@ -1,11 +1,10 @@
 import Foundation
 import UIKit
 
-
 // MARK: - NSMutableAttributedString Methods
+
 //
 extension NSMutableAttributedString {
-
     /// Returns the (foundation) associated NSString
     ///
     var foundationString: NSString {

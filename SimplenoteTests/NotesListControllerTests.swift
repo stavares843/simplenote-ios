@@ -1,11 +1,10 @@
-import XCTest
 @testable import Simplenote
-
+import XCTest
 
 // MARK: - NotesListControllerTests
+
 //
 class NotesListControllerTests: XCTestCase {
-
     /// InMemory Storage!
     ///
     private let storage = MockupStorageManager()
@@ -13,7 +12,6 @@ class NotesListControllerTests: XCTestCase {
     /// List Controller
     ///
     private var noteListController: NotesListController!
-
 
     // MARK: - Overridden Methods
 
@@ -27,7 +25,6 @@ class NotesListControllerTests: XCTestCase {
         super.tearDown()
         storage.reset()
     }
-
 
     // MARK: - Tests: Filters
 
@@ -49,7 +46,6 @@ class NotesListControllerTests: XCTestCase {
         noteListController.performFetch()
         XCTAssertEqual(noteListController.numberOfObjects, 1)
     }
-
 
     // MARK: - Tests: Sorting
 
@@ -73,7 +69,6 @@ class NotesListControllerTests: XCTestCase {
         }
     }
 
-
     // MARK: - Tests: Sections
 
     /// Verifies that the Tag Entities aren't fetched when in Results Mode
@@ -91,7 +86,6 @@ class NotesListControllerTests: XCTestCase {
         XCTAssertEqual(noteListController.sections.count, 1)
         XCTAssertEqual(noteListController.sections[0].numberOfObjects, notes.count)
     }
-
 
     // MARK: - Tests: Search
 
@@ -121,7 +115,6 @@ class NotesListControllerTests: XCTestCase {
         XCTAssertEqual(noteListController.numberOfObjects, 0)
         XCTAssertEqual(noteListController.sections.count, 2)
     }
-
 
     /// Verifies that the `endSearch` switches the NotesList back to a single section
     ///
@@ -168,7 +161,6 @@ class NotesListControllerTests: XCTestCase {
 
         XCTAssert(noteListController.sections[0].numberOfObjects <= noteListController.limitForTagResults)
     }
-
 
     // MARK: - Tests: `object(at:)`
 
@@ -224,7 +216,6 @@ class NotesListControllerTests: XCTestCase {
         XCTAssertEqual(tag.name, "055")
         XCTAssertEqual(note.content, "055")
     }
-
 
     // MARK: - Tests: `indexPath(forObject:)`
 
@@ -283,7 +274,6 @@ class NotesListControllerTests: XCTestCase {
         }
     }
 
-
     // MARK: - Tests: onBatchChanges
 
     /// Verifies that `onBatchChanges` is never called for **Tags** in the following scenarios:
@@ -292,7 +282,7 @@ class NotesListControllerTests: XCTestCase {
     ///     - OP: Insert / Update / Delete
     ///
     func testOnBatchChangesDoesntRunForInsertUpdateNorDeleteOpsOverTagsWhenInResultsMode() {
-        noteListController.onBatchChanges = { (_, _) in
+        noteListController.onBatchChanges = { _, _ in
             XCTFail()
         }
 
@@ -313,7 +303,7 @@ class NotesListControllerTests: XCTestCase {
     ///
     func testOnBatchChangesDoesRunForNoteInsertionsWhenInResultsMode() {
         expectBatchChanges(objectChanges: [
-            .insert(indexPath: IndexPath(row: 0, section: 0))
+            .insert(indexPath: IndexPath(row: 0, section: 0)),
         ])
 
         storage.insertSampleNote()
@@ -332,7 +322,7 @@ class NotesListControllerTests: XCTestCase {
         storage.save()
 
         expectBatchChanges(objectChanges: [
-            .delete(indexPath: IndexPath(row: 0, section: 0))
+            .delete(indexPath: IndexPath(row: 0, section: 0)),
         ])
 
         storage.delete(note)
@@ -351,7 +341,7 @@ class NotesListControllerTests: XCTestCase {
         storage.save()
 
         expectBatchChanges(objectChanges: [
-            .update(indexPath: IndexPath(row: 0, section: 0))
+            .update(indexPath: IndexPath(row: 0, section: 0)),
         ])
 
         note.content = "Updated"
@@ -371,7 +361,7 @@ class NotesListControllerTests: XCTestCase {
         storage.save()
 
         expectBatchChanges(objectChanges: [
-            .move(oldIndexPath: IndexPath(row: 0, section: 0), newIndexPath: IndexPath(row: 1, section: 0))
+            .move(oldIndexPath: IndexPath(row: 0, section: 0), newIndexPath: IndexPath(row: 1, section: 0)),
         ])
 
         firstNote.content = "C"
@@ -387,7 +377,7 @@ class NotesListControllerTests: XCTestCase {
     ///
     func testOnBatchChangesDoesRunForTagInsertionsWhenInSearchMode() {
         expectBatchChanges(objectChanges: [
-            .insert(indexPath: IndexPath(row: 0, section: 0))
+            .insert(indexPath: IndexPath(row: 0, section: 0)),
         ])
 
         noteListController.beginSearch()
@@ -408,7 +398,7 @@ class NotesListControllerTests: XCTestCase {
         storage.save()
 
         expectBatchChanges(objectChanges: [
-            .update(indexPath: IndexPath(row: 0, section: 0))
+            .update(indexPath: IndexPath(row: 0, section: 0)),
         ])
 
         noteListController.beginSearch()
@@ -429,7 +419,7 @@ class NotesListControllerTests: XCTestCase {
         storage.save()
 
         expectBatchChanges(objectChanges: [
-            .delete(indexPath: IndexPath(row: 0, section: 0))
+            .delete(indexPath: IndexPath(row: 0, section: 0)),
         ])
 
         noteListController.beginSearch()
@@ -447,7 +437,7 @@ class NotesListControllerTests: XCTestCase {
     ///
     func testOnBatchChangesDoesRunForNoteInsertionsWhenInSearchModeAndTheSectionIndexIsProperlyCorrected() {
         expectBatchChanges(objectChanges: [
-            .insert(indexPath: IndexPath(row: 0, section: 1))
+            .insert(indexPath: IndexPath(row: 0, section: 1)),
         ])
 
         noteListController.beginSearch()
@@ -468,7 +458,7 @@ class NotesListControllerTests: XCTestCase {
         storage.save()
 
         expectBatchChanges(objectChanges: [
-            .update(indexPath: IndexPath(row: 0, section: 1))
+            .update(indexPath: IndexPath(row: 0, section: 1)),
         ])
 
         noteListController.beginSearch()
@@ -489,7 +479,7 @@ class NotesListControllerTests: XCTestCase {
         storage.save()
 
         expectBatchChanges(objectChanges: [
-            .delete(indexPath: IndexPath(row: 0, section: 1))
+            .delete(indexPath: IndexPath(row: 0, section: 1)),
         ])
 
         noteListController.beginSearch()
@@ -507,7 +497,7 @@ class NotesListControllerTests: XCTestCase {
         storage.save()
 
         expectBatchChanges(objectChanges: [
-            .insert(indexPath: IndexPath(row: 1, section: 0))
+            .insert(indexPath: IndexPath(row: 1, section: 0)),
         ])
 
         storage.insertSampleNote(contents: "B")
@@ -517,25 +507,24 @@ class NotesListControllerTests: XCTestCase {
     }
 }
 
-
 // MARK: - Private APIs
+
 //
 private extension NotesListControllerTests {
-
     /// Inserts `N` entities  with ascending payloads (Name / Contents)
     ///
     @discardableResult
-    func insertSampleEntities(count: Int) -> ([Note], [Tag], [String]) {
+    func insertSampleEntities(count _: Int) -> ([Note], [Tag], [String]) {
         var notes = [Note]()
         var tags = [Tag]()
         var expected = [String]()
 
-        for index in 0..<100 {
+        for index in 0 ..< 100 {
             let payload = String(format: "%03d", index)
 
-            tags.append( storage.insertSampleTag(name: payload) )
-            notes.append( storage.insertSampleNote(contents: payload) )
-            expected.append( payload )
+            tags.append(storage.insertSampleTag(name: payload))
+            notes.append(storage.insertSampleNote(contents: payload))
+            expected.append(payload)
         }
 
         return (notes, tags, expected)
@@ -547,7 +536,7 @@ private extension NotesListControllerTests {
     func expectBatchChanges(objectChanges: [ResultsObjectChange] = [], sectionChanges: [ResultsSectionChange] = []) -> XCTestExpectation {
         let expectation = self.expectation(description: "Waiting...")
 
-        noteListController.onBatchChanges = { (receivedObjectChanges, receivedSectionChanges) in
+        noteListController.onBatchChanges = { receivedObjectChanges, receivedSectionChanges in
             for (index, change) in objectChanges.enumerated() {
                 XCTAssertEqual(change, receivedObjectChanges[index])
             }

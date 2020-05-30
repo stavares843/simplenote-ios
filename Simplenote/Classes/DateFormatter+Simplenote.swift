@@ -1,10 +1,9 @@
 import Foundation
 
-
 // MARK: - Simplenote Extension
+
 //
 extension DateFormatter {
-
     /// Shared DateFormatters
     ///
     struct Simplenote {

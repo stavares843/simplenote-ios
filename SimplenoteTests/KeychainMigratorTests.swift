@@ -1,11 +1,10 @@
-import XCTest
 @testable import Simplenote
-
+import XCTest
 
 // MARK: - KeychainMigrator Tests
+
 //
 class KeychainMigratorTests: XCTestCase {
-
     let testingUsername = "TestingUsername"
     let testingPassword = "TestingPassword"
     let migrator = KeychainMigrator()
@@ -25,7 +24,6 @@ class KeychainMigratorTests: XCTestCase {
         migrator.username = nil
         XCTAssertFalse(migrator.needsPasswordMigration(), "")
     }
-
 
     /// This test verifies that `needsPasswordMigration` returns true whenever:
     ///

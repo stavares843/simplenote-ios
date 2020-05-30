@@ -1,11 +1,10 @@
 import Foundation
 import UIKit
 
-
 // MARK: - UITableView Mockup
+
 //
 class MockupTableView: UITableView {
-
     /// Closure to be executed whenever `beginUpdates` is called.
     ///
     var onBeginUpdates: (() -> Void)?
@@ -34,9 +33,8 @@ class MockupTableView: UITableView {
     ///
     var onInsertedSections: ((IndexSet) -> Void)?
 
-
-
     // MARK: - Overridden Methods
+
     override func beginUpdates() {
         onBeginUpdates?()
     }
@@ -45,23 +43,23 @@ class MockupTableView: UITableView {
         onEndUpdates?()
     }
 
-    override func insertRows(at indexPaths: [IndexPath], with animation: UITableView.RowAnimation) {
+    override func insertRows(at indexPaths: [IndexPath], with _: UITableView.RowAnimation) {
         onInsertedRows?(indexPaths)
     }
 
-    override func deleteRows(at indexPaths: [IndexPath], with animation: UITableView.RowAnimation) {
+    override func deleteRows(at indexPaths: [IndexPath], with _: UITableView.RowAnimation) {
         onDeletedRows?(indexPaths)
     }
 
-    override func reloadRows(at indexPaths: [IndexPath], with animation: UITableView.RowAnimation) {
+    override func reloadRows(at indexPaths: [IndexPath], with _: UITableView.RowAnimation) {
         onReloadRows?(indexPaths)
     }
 
-    override func deleteSections(_ sections: IndexSet, with animation: UITableView.RowAnimation) {
+    override func deleteSections(_ sections: IndexSet, with _: UITableView.RowAnimation) {
         onDeletedSections?(sections)
     }
 
-    override func insertSections(_ sections: IndexSet, with animation: UITableView.RowAnimation) {
+    override func insertSections(_ sections: IndexSet, with _: UITableView.RowAnimation) {
         onInsertedSections?(sections)
     }
 }

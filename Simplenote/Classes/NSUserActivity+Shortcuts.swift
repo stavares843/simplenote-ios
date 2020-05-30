@@ -1,11 +1,10 @@
-import Foundation
 import CoreSpotlight
-
+import Foundation
 
 // MARK: - Simplenote's NSUserActivities
+
 //
 extension NSUserActivity {
-
     /// Registers the Launch Activity
     ///
     @objc

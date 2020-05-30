@@ -1,8 +1,8 @@
 import Foundation
 import UIKit
 
-
 // MARK: - SearchDisplayController Delegate Methods
+
 //
 @objc
 protocol SearchDisplayControllerDelegate: NSObjectProtocol {
@@ -12,20 +12,19 @@ protocol SearchDisplayControllerDelegate: NSObjectProtocol {
     func searchDisplayControllerDidEndSearch(_ controller: SearchDisplayController)
 }
 
-
 // MARK: - SearchControllerPresentationContextProvider Methods
+
 //
 @objc
 protocol SearchControllerPresentationContextProvider: NSObjectProtocol {
     func navigationControllerForSearchDisplayController(_ controller: SearchDisplayController) -> UINavigationController
 }
 
-
 // MARK: - Simplenote's Search Controller: Because UIKit's Search Controller is simply unusable
+
 //
 @objcMembers
 class SearchDisplayController: NSObject {
-
     /// Indicates if the SearchController is active (or not!)
     ///
     private(set) var active = false
@@ -41,7 +40,6 @@ class SearchDisplayController: NSObject {
     /// SearchController's Presentation Context Provider
     ///
     weak var presenter: SearchControllerPresentationContextProvider?
-
 
     /// Designated Initializer
     ///
@@ -75,17 +73,16 @@ class SearchDisplayController: NSObject {
     /// We'll rely on this API to ensure transitions from List <> Editor are smooth: In Search Mode the list won't display the NavigationBar, but the
     /// Editor is always expected to display a navbar. When going backwards, we'll always need to restore the navbar.
     ///
-    @objc
+
     func hideNavigationBarIfNecessary() {
         updateNavigationBar(hidden: active)
     }
 }
 
-
 // MARK: - Private Methods
+
 //
 private extension SearchDisplayController {
-
     func setupSearchBar() {
         searchBar.delegate = self
         searchBar.placeholder = NSLocalizedString("Search", comment: "Search Placeholder")
@@ -108,8 +105,8 @@ private extension SearchDisplayController {
     func updateNavigationBar(hidden: Bool) {
         guard let navigationController = presenter?.navigationControllerForSearchDisplayController(self),
             navigationController.isNavigationBarHidden != hidden
-            else {
-                return
+        else {
+            return
         }
 
         navigationController.setNavigationBarHidden(hidden, animated: true)
@@ -136,12 +133,11 @@ private extension SearchDisplayController {
     }
 }
 
-
 // MARK: - UISearchBar Delegate Methods
+
 //
 extension SearchDisplayController: UISearchBarDelegate {
-
-    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+    func searchBarShouldBeginEditing(_: UISearchBar) -> Bool {
         guard let shouldBeginEditing = delegate?.searchDisplayControllerShouldBeginSearch(self) else {
             return false
         }
@@ -151,7 +147,7 @@ extension SearchDisplayController: UISearchBarDelegate {
         return shouldBeginEditing
     }
 
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+    func searchBar(_: UISearchBar, textDidChange searchText: String) {
         delegate?.searchDisplayController(self, updateSearchResults: searchText)
     }
 
@@ -159,16 +155,15 @@ extension SearchDisplayController: UISearchBarDelegate {
         searchBar.resignFirstResponder()
     }
 
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+    func searchBarCancelButtonClicked(_: UISearchBar) {
         dismiss()
     }
 }
 
-
 // MARK: - SPSearchBar
+
 //
 class SPSearchBar: UISearchBar {
-
     /// **Custom** Behavior:
     /// Normally resigning FirstResponder status implies all of the button subviews (ie. cancel button) to become disabled. This implies that
     /// hiding the keyboard makes it impossible to simply tap `Cancel` to exit **Search Mode**.

@@ -1,11 +1,10 @@
 import Foundation
 import UIKit
 
-
 // MARK: - UITraitCollection Simplenote Methods
+
 //
 extension UITraitCollection {
-
     /// Returns a UITraitCollection that *only* contains the Light Interface Style. No other attribute is initialized
     ///
     @available(iOS 12.0, *)

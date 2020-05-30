@@ -5,12 +5,11 @@
 //
 import Foundation
 
-
 // MARK: - KeychainMigrator
+
 //
 @objc
 class KeychainMigrator: NSObject {
-
     /// Keychain Constants
     ///
     private struct Constants {
@@ -55,11 +54,10 @@ class KeychainMigrator: NSObject {
     }
 }
 
-
 // MARK: - Internal Helpers: This should actually be *private*, but for unit testing purposes, we're keeping them this way.
+
 //
 extension KeychainMigrator {
-
     /// Indicates if the Migration should take place. This is true whenever:
     ///
     /// - The Username is accessible
@@ -94,7 +92,7 @@ extension KeychainMigrator {
             NSLog("Keychain Migration Error: \(error)")
 
             SPTracker.trackKeychainMigrationFailed()
-            self.restoreLegacyPassword(password: legacyPassword, for: username)
+            restoreLegacyPassword(password: legacyPassword, for: username)
         }
     }
 
@@ -112,8 +110,8 @@ extension KeychainMigrator {
     }
 }
 
-
 // MARK: - User Defaults Wrappers
+
 //
 extension KeychainMigrator {
     /// Username
@@ -129,11 +127,10 @@ extension KeychainMigrator {
     }
 }
 
-
 // MARK: - Keychain Wrappers: This should actually be *private*, but for unit testing purposes, we're keeping them this way.
+
 //
 extension KeychainMigrator {
-
     enum AccessGroup {
         case new
         case legacy
@@ -178,28 +175,28 @@ extension KeychainMigrator {
         try passwordItem.savePassword(password)
     }
 
-#if RELEASE
-    /// This method tests the Migration Flow. This should only be executed in the *Release* target, since the AppID's won't
-    /// match with the one(s) used in the other targets.
-    ///
-    /// For testing purposes only.
-    ///
-    @objc
-    func testMigration() {
-        let dummyUsername = "TestingUsername"
-        let dummyPassword = "TestingPassword"
+    #if RELEASE
+        /// This method tests the Migration Flow. This should only be executed in the *Release* target, since the AppID's won't
+        /// match with the one(s) used in the other targets.
+        ///
+        /// For testing purposes only.
+        ///
+        @objc
+        func testMigration() {
+            let dummyUsername = "TestingUsername"
+            let dummyPassword = "TestingPassword"
 
-        // Recreate Pre-Migration Scenario
-        username = dummyUsername
-        try? deleteKeychainEntry(accessGroup: .new, username: dummyUsername)
-        try? saveKeychainEntry(accessGroup: .legacy, username: dummyUsername, password: dummyPassword)
+            // Recreate Pre-Migration Scenario
+            username = dummyUsername
+            try? deleteKeychainEntry(accessGroup: .new, username: dummyUsername)
+            try? saveKeychainEntry(accessGroup: .legacy, username: dummyUsername, password: dummyPassword)
 
-        // Migrate
-        migrateIfNecessary()
+            // Migrate
+            migrateIfNecessary()
 
-        // Verify
-        let migrated = try? loadKeychainEntry(accessGroup: .new, username: dummyUsername)
-        assert(migrated == dummyPassword)
-    }
-#endif
+            // Verify
+            let migrated = try? loadKeychainEntry(accessGroup: .new, username: dummyUsername)
+            assert(migrated == dummyPassword)
+        }
+    #endif
 }

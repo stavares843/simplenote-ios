@@ -1,10 +1,9 @@
 import Foundation
 
-
 // MARK: -
+
 //
 extension UIColor {
-
     /// Initializes a new UIColor instance with a given ColorStudio value
     ///
     convenience init(studioColor: ColorStudio) {
@@ -28,11 +27,10 @@ extension UIColor {
     }
 }
 
-
 // MARK: - Simplenote colors!
+
 //
 extension UIColor {
-
     @objc
     static var simplenoteBlue30Color: UIColor {
         UIColor(studioColor: .spBlue30)
@@ -77,7 +75,7 @@ extension UIColor {
     static var simplenoteGray80Color: UIColor {
         UIColor(studioColor: .gray80)
     }
-    
+
     @objc
     static var simplenoteGray100Color: UIColor {
         UIColor(studioColor: .gray100)
@@ -273,7 +271,6 @@ extension UIColor {
         UIColor(lightColor: .gray50, darkColor: .gray30)
     }
 
-
     @objc
     static var simplenoteTagViewCompleteHighlightedColor: UIColor {
         UIColor(lightColor: .gray30, darkColor: .gray50)
@@ -284,10 +281,7 @@ extension UIColor {
         UIColor(lightColor: .spBlue5, darkColor: .darkGray3)
     }
 
-
-
-
-///    #### PENDINGS
+    ///    #### PENDINGS
 
     @objc
     static var simplenoteActionSheetButtonTitleColor: UIColor {

@@ -1,12 +1,11 @@
 import Foundation
 import UIKit
 
-
 // MARK: - Simplenote's Theme
+
 //
 @objc
 class SPUserInterface: NSObject {
-
     /// Ladies and gentlemen, this is a singleton.
     ///
     @objc

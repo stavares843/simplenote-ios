@@ -1,12 +1,11 @@
 import Foundation
-import UIKit
 import SafariServices
-
+import UIKit
 
 // MARK: - SPAuthViewController
+
 //
 class SPAuthViewController: UIViewController {
-
     /// # Links to the StackView and the container view
     ///
     @IBOutlet private var stackViewTopConstraint: NSLayoutConstraint!
@@ -174,14 +173,11 @@ class SPAuthViewController: UIViewController {
     ///
     let mode: AuthenticationMode
 
-
-
     /// NSCodable Required Initializer
     ///
-    required init?(coder aDecoder: NSCoder) {
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
 
     /// Designated Initializer
     ///
@@ -190,7 +186,6 @@ class SPAuthViewController: UIViewController {
         self.mode = mode
         super.init(nibName: nil, bundle: nil)
     }
-
 
     // MARK: - Overridden Methods
 
@@ -214,15 +209,14 @@ class SPAuthViewController: UIViewController {
         // Note: running becomeFirstResponder in `viewWillAppear` has the weird side effect of breaking caret
         // repositioning in the Text Field. Seriously.
         // Ref. https://github.com/Automattic/simplenote-ios/issues/453
-        self.emailInputView.becomeFirstResponder()
+        emailInputView.becomeFirstResponder()
     }
 }
 
-
 // MARK: - Actions
+
 //
 extension SPAuthViewController {
-
     @IBAction func revealPasswordWasPressed() {
         let isPasswordVisible = !revealPasswordButton.isSelected
         revealPasswordButton.isSelected = isPasswordVisible
@@ -230,11 +224,10 @@ extension SPAuthViewController {
     }
 }
 
-
 // MARK: - Interface
+
 //
 private extension SPAuthViewController {
-
     func setupNavigationController() {
         title = mode.title
         navigationController?.navigationBar.applyLightStyle()
@@ -288,11 +281,10 @@ private extension SPAuthViewController {
     }
 }
 
-
 // MARK: - Actions
+
 //
 private extension SPAuthViewController {
-
     /// Whenever the input is Valid, we'll perform the Primary Action
     ///
     func performPrimaryActionIfPossible() {
@@ -335,7 +327,7 @@ private extension SPAuthViewController {
     }
 
     @IBAction func performOnePasswordLogIn(sender: Any) {
-        controller.findOnePasswordLogin(presenter: self, sender: sender) { (username, password, error) in
+        controller.findOnePasswordLogin(presenter: self, sender: sender) { username, password, error in
             guard let username = username, let password = password else {
                 if error == .onePasswordError {
                     SPTracker.trackOnePasswordLoginFailure()
@@ -353,7 +345,7 @@ private extension SPAuthViewController {
     }
 
     @IBAction func performOnePasswordSignUp(sender: Any) {
-        controller.saveLoginToOnePassword(presenter: self, sender: sender, username: email, password: password) { (username, password, error) in
+        controller.saveLoginToOnePassword(presenter: self, sender: sender, username: email, password: password) { username, password, error in
             guard let username = username, let password = password else {
                 if error == .onePasswordError {
                     SPTracker.trackOnePasswordSignupFailure()
@@ -385,11 +377,10 @@ private extension SPAuthViewController {
     }
 }
 
-
 // MARK: - Simperium Services
+
 //
 private extension SPAuthViewController {
-
     func performCredentialsValidation() {
         lockdownInterface()
 
@@ -419,11 +410,10 @@ private extension SPAuthViewController {
     }
 }
 
-
 // MARK: - Password Reset Flow
+
 //
 private extension SPAuthViewController {
-
     func presentPasswordResetRequiredAlert(email: String) {
         guard let resetURL = URL(string: SimplenoteConstants.resetPasswordURL + email) else {
             fatalError()
@@ -440,11 +430,10 @@ private extension SPAuthViewController {
     }
 }
 
-
 // MARK: - Error Handling
+
 //
 private extension SPAuthViewController {
-
     func handleError(error: SPAuthError) {
         guard error.shouldBePresentedOnscreen else {
             return
@@ -493,11 +482,10 @@ private extension SPAuthViewController {
     }
 }
 
-
 // MARK: - Warning Labels
+
 //
 private extension SPAuthViewController {
-
     func displayEmailValidationWarning(_ string: String) {
         emailWarningLabel.text = string
         refreshEmailInput(inErrorState: true)
@@ -527,11 +515,10 @@ private extension SPAuthViewController {
     }
 }
 
-
 // MARK: - Validation
+
 //
 private extension SPAuthViewController {
-
     func performUsernameValidation() -> AuthenticationValidator.Result {
         validator.performUsernameValidation(username: email)
     }
@@ -576,12 +563,11 @@ private extension SPAuthViewController {
     }
 }
 
-
 // MARK: - UITextFieldDelegate Conformance
+
 //
 extension SPAuthViewController: SPTextInputViewDelegate {
-
-    func textInputDidChange(_ textInput: SPTextInputView) {
+    func textInputDidChange(_: SPTextInputView) {
         ensureStylesMatchValidationState()
         ensureWarningsAreDismissedWhenNeeded()
     }
@@ -614,8 +600,8 @@ extension SPAuthViewController: SPTextInputViewDelegate {
     }
 }
 
-
 // MARK: - AuthenticationMode: Signup / Login
+
 //
 struct AuthenticationMode {
     let title: String
@@ -628,58 +614,57 @@ struct AuthenticationMode {
     let secondaryActionAttributedText: NSAttributedString?
 }
 
-
 // MARK: - Default Operation Modes
+
 //
 extension AuthenticationMode {
-
     /// Login Operation Mode: Contains all of the strings + delegate wirings, so that the AuthUI handles authentication scenarios.
     ///
     static var login: AuthenticationMode {
-        return .init(title:                         AuthenticationStrings.loginTitle,
-                     validationStyle:               .legacy,
-                     onePasswordSelector:           #selector(SPAuthViewController.performOnePasswordLogIn),
-                     primaryActionSelector:         #selector(SPAuthViewController.performLogIn),
-                     primaryActionText:             AuthenticationStrings.loginPrimaryAction,
-                     secondaryActionSelector:       #selector(SPAuthViewController.presentPasswordReset),
-                     secondaryActionText:           AuthenticationStrings.loginSecondaryAction,
+        return .init(title: AuthenticationStrings.loginTitle,
+                     validationStyle: .legacy,
+                     onePasswordSelector: #selector(SPAuthViewController.performOnePasswordLogIn),
+                     primaryActionSelector: #selector(SPAuthViewController.performLogIn),
+                     primaryActionText: AuthenticationStrings.loginPrimaryAction,
+                     secondaryActionSelector: #selector(SPAuthViewController.presentPasswordReset),
+                     secondaryActionText: AuthenticationStrings.loginSecondaryAction,
                      secondaryActionAttributedText: nil)
     }
 
     /// Signup Operation Mode: Contains all of the strings + delegate wirings, so that the AuthUI handles user account creation scenarios.
     ///
     static var signup: AuthenticationMode {
-        return .init(title:                         AuthenticationStrings.signupTitle,
-                     validationStyle:               .strong,
-                     onePasswordSelector:           #selector(SPAuthViewController.performOnePasswordSignUp),
-                     primaryActionSelector:         #selector(SPAuthViewController.performSignUp),
-                     primaryActionText:             AuthenticationStrings.signupPrimaryAction,
-                     secondaryActionSelector:       #selector(SPAuthViewController.presentTermsOfService),
-                     secondaryActionText:           nil,
+        return .init(title: AuthenticationStrings.signupTitle,
+                     validationStyle: .strong,
+                     onePasswordSelector: #selector(SPAuthViewController.performOnePasswordSignUp),
+                     primaryActionSelector: #selector(SPAuthViewController.performSignUp),
+                     primaryActionText: AuthenticationStrings.signupPrimaryAction,
+                     secondaryActionSelector: #selector(SPAuthViewController.presentTermsOfService),
+                     secondaryActionText: nil,
                      secondaryActionAttributedText: AuthenticationStrings.signupSecondaryAttributedAction)
     }
 }
 
-
 // MARK: - Authentication Strings
+
 //
 private enum AuthenticationStrings {
-    static let loginTitle                   = NSLocalizedString("Log In", comment: "LogIn Interface Title")
-    static let loginPrimaryAction           = NSLocalizedString("Log In", comment: "LogIn Action")
-    static let loginSecondaryAction         = NSLocalizedString("Forgotten password?", comment: "Password Reset Action")
-    static let signupTitle                  = NSLocalizedString("Sign Up", comment: "SignUp Interface Title")
-    static let signupPrimaryAction          = NSLocalizedString("Sign Up", comment: "SignUp Action")
-    static let signupSecondaryActionPrefix  = NSLocalizedString("By creating an account you agree to our", comment: "Terms of Service Legend *PREFIX*: printed in dark color")
-    static let signupSecondaryActionSuffix  = NSLocalizedString("Terms and Conditions", comment: "Terms of Service Legend *SUFFIX*: Concatenated with a space, after the PREFIX, and printed in blue")
-    static let emailPlaceholder             = NSLocalizedString("Email", comment: "Email TextField Placeholder")
-    static let passwordPlaceholder          = NSLocalizedString("Password", comment: "Password TextField Placeholder")
-    static let acceptActionText             = NSLocalizedString("Accept", comment: "Accept Action")
-    static let cancelActionText             = NSLocalizedString("Cancel", comment: "Cancel Action")
-    static let loginActionText              = NSLocalizedString("Log In", comment: "Log In Action")
+    static let loginTitle = NSLocalizedString("Log In", comment: "LogIn Interface Title")
+    static let loginPrimaryAction = NSLocalizedString("Log In", comment: "LogIn Action")
+    static let loginSecondaryAction = NSLocalizedString("Forgotten password?", comment: "Password Reset Action")
+    static let signupTitle = NSLocalizedString("Sign Up", comment: "SignUp Interface Title")
+    static let signupPrimaryAction = NSLocalizedString("Sign Up", comment: "SignUp Action")
+    static let signupSecondaryActionPrefix = NSLocalizedString("By creating an account you agree to our", comment: "Terms of Service Legend *PREFIX*: printed in dark color")
+    static let signupSecondaryActionSuffix = NSLocalizedString("Terms and Conditions", comment: "Terms of Service Legend *SUFFIX*: Concatenated with a space, after the PREFIX, and printed in blue")
+    static let emailPlaceholder = NSLocalizedString("Email", comment: "Email TextField Placeholder")
+    static let passwordPlaceholder = NSLocalizedString("Password", comment: "Password TextField Placeholder")
+    static let acceptActionText = NSLocalizedString("Accept", comment: "Accept Action")
+    static let cancelActionText = NSLocalizedString("Cancel", comment: "Cancel Action")
+    static let loginActionText = NSLocalizedString("Log In", comment: "Log In Action")
 }
 
-
 // MARK: - PasswordInsecure Alert Strings
+
 //
 private enum PasswordInsecureString {
     static let cancel = NSLocalizedString("Cancel", comment: "Cancel Action")
@@ -690,20 +675,19 @@ private enum PasswordInsecureString {
         String.newline,
         NSLocalizedString("- Password cannot match email", comment: "Password Requirement: Email Match"),
         NSLocalizedString("- Minimum of 8 characters", comment: "Password Requirement: Length"),
-        NSLocalizedString("- Neither tabs nor newlines are allowed", comment: "Password Requirement: Special Characters")
+        NSLocalizedString("- Neither tabs nor newlines are allowed", comment: "Password Requirement: Special Characters"),
     ].joined(separator: .newline)
 }
 
-
 // MARK: - Strings >> Authenticated Strings Convenience Properties
+
 //
 private extension AuthenticationStrings {
-
     /// Returns a properly formatted Secondary Action String for Signup
     ///
     static var signupSecondaryAttributedAction: NSAttributedString {
         let output = NSMutableAttributedString(string: String(), attributes: [
-            .font: UIFont.preferredFont(forTextStyle: .subheadline)
+            .font: UIFont.preferredFont(forTextStyle: .subheadline),
         ])
 
         output.append(string: signupSecondaryActionPrefix, foregroundColor: .simplenoteGray60Color)
@@ -714,10 +698,10 @@ private extension AuthenticationStrings {
     }
 }
 
-
 // MARK: - Authentication Constants
+
 //
 private enum AuthenticationConstants {
-    static let onePasswordInsets    = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 16)
-    static let warningInsets        = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 0)
+    static let onePasswordInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 16)
+    static let warningInsets = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 0)
 }
