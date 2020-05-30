@@ -1,10 +1,9 @@
 import Foundation
 
-
 // MARK: - UIActivity <> WordPress iOS!
+
 //
 extension UIActivity.ActivityType {
-
     /// WordPress Draft Extension (AppStore)
     ///
     static var wordPressDraftAppStore: UIActivity.ActivityType {
@@ -36,7 +35,7 @@ extension UIActivity.ActivityType {
             .wordPressDraftAppStore,
             .wordPressDraftInternal,
             .wordPressShareAppStore,
-            .wordPressShareInternal
+            .wordPressShareInternal,
         ]
 
         return wordpressActivities.contains(self)

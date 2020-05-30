@@ -1,11 +1,10 @@
 import Foundation
 import UIKit
 
-
 // MARK: - Simplenote's UIImage Static Methods
+
 //
 extension UIImage {
-
     /// Returns the UIColor instance matching a given UIColorName. If any
     ///
     @objc

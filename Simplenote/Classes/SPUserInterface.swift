@@ -1,12 +1,11 @@
 import Foundation
 import UIKit
 
-
 // MARK: - Simplenote's Theme
+
 //
 @objc
 class SPUserInterface: NSObject {
-
     /// Ladies and gentlemen, this is a singleton.
     ///
     @objc
@@ -31,7 +30,7 @@ class SPUserInterface: NSObject {
 
     /// Initializer
     ///
-    private override init() {
+    override private init() {
         super.init()
         startListeningToNotifications()
     }
@@ -49,11 +48,10 @@ class SPUserInterface: NSObject {
     }
 }
 
-
 // MARK: - Private Methods
+
 //
 private extension SPUserInterface {
-
     func startListeningToNotifications() {
         let nc = NotificationCenter.default
         nc.addObserver(self, selector: #selector(refreshUserInterfaceStyle), name: .SPSimplenoteThemeChanged, object: nil)
@@ -67,20 +65,19 @@ private extension SPUserInterface {
         let legacyThemeName = Options.shared.theme == .dark ? kSimplenoteDarkThemeName : kSimplenoteDefaultThemeName
         VSThemeManager.shared().swapTheme(legacyThemeName)
     }
-    
-    @available (iOS 13, *)
+
+    @available(iOS 13, *)
     func refreshUserInterfaceStyleIOS13() {
         let window = SPAppDelegate.shared().window
         window.overrideUserInterfaceStyle = Options.shared.theme.userInterfaceStyle
     }
 }
 
-
 // MARK: - Private Theme Methods
+
 //
 private extension Theme {
-
-    @available (iOS 13, *)
+    @available(iOS 13, *)
     var userInterfaceStyle: UIUserInterfaceStyle {
         switch self {
         case .light:

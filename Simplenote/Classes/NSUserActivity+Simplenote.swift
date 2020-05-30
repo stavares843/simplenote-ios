@@ -1,14 +1,12 @@
-import Foundation
 import CoreSpotlight
+import Foundation
 import Intents
 import MobileCoreServices
 
-
-
 // MARK: - NSUserActivity Convenience Methods
+
 //
 extension NSUserActivity {
-
     /// Initializes a UserActivity Instance with a given Activity Type
     ///
     /// - Parameters:

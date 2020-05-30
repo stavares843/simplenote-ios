@@ -1,11 +1,10 @@
-import XCTest
 @testable import Simplenote
-
+import XCTest
 
 // MARK: - String Simplenote Unit Tests
+
 //
 class StringSimplenoteTests: XCTestCase {
-
     /// Verifies that Suffix after Prefix returns nil, whenever such prefix isn't to be found
     ///
     func testSuffixAfterPrefixReturnsNilWheneverTheInputStringLacksSuchPrefix() {

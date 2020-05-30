@@ -1,17 +1,16 @@
 import Foundation
 import UIKit
 
-
 // MARK: - SPBlurEffectView: Reacts automatically to UserInterfaceStyle Changes
+
 //
 @objc
 class SPBlurEffectView: UIVisualEffectView {
-
     /// Blur's TintView
     ///
     private let tintView: UIView = {
         let output = UIView()
-        output.autoresizingMask = [.flexibleWidth, .flexibleHeight];
+        output.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         return output
     }()
 
@@ -24,7 +23,6 @@ class SPBlurEffectView: UIVisualEffectView {
         }
     }
 
-
     // MARK: - Initializers
 
     deinit {
@@ -35,7 +33,7 @@ class SPBlurEffectView: UIVisualEffectView {
         self.init(effect: .simplenoteBlurEffect)
     }
 
-    convenience required init?(coder: NSCoder) {
+    required convenience init?(coder _: NSCoder) {
         self.init(effect: .simplenoteBlurEffect)
     }
 
@@ -46,11 +44,10 @@ class SPBlurEffectView: UIVisualEffectView {
     }
 }
 
-
 // MARK: - Private Methods
+
 //
 private extension SPBlurEffectView {
-
     func startListeningToNotifications() {
         // No need to do this in iOS +13
         if #available(iOS 13, *) {
@@ -79,11 +76,10 @@ private extension SPBlurEffectView {
     }
 }
 
-
 // MARK: - Static Methods
+
 //
 extension SPBlurEffectView {
-
     /// Adjust the receiver's alpha, to match a given ScrollView's ContentOffset
     ///
     @objc
@@ -106,7 +102,7 @@ extension SPBlurEffectView {
         let effectView = SPBlurEffectView()
         effectView.isUserInteractionEnabled = false
         effectView.tintColorClosure = {
-            return .simplenoteNavigationBarBackgroundColor
+            .simplenoteNavigationBarBackgroundColor
         }
 
         return effectView

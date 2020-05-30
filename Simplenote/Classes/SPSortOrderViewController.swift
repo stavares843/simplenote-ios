@@ -8,11 +8,10 @@
 import Foundation
 import UIKit
 
-
 // MARK: - Settings: Sort Order
+
 //
 class SPSortOrderViewController: UITableViewController {
-
     /// Selected SortMode
     ///
     @objc
@@ -38,7 +37,7 @@ class SPSortOrderViewController: UITableViewController {
         super.init(style: .grouped)
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
@@ -49,16 +48,15 @@ class SPSortOrderViewController: UITableViewController {
     }
 }
 
-
 // MARK: - UITableViewDelegate Conformance
+
 //
 extension SPSortOrderViewController {
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    override func numberOfSections(in _: UITableView) -> Int {
         return Constants.numberOfSections
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
         return SortMode.allCases.count
     }
 
@@ -78,11 +76,10 @@ extension SPSortOrderViewController {
     }
 }
 
-
 // MARK: - Private
+
 //
 private extension SPSortOrderViewController {
-
     func setupNavigationItem() {
         title = NSLocalizedString("Sort Order", comment: "Sort Order for the Notes List")
 
@@ -124,9 +121,7 @@ private extension SPSortOrderViewController {
     }
 }
 
-
 extension SPSortOrderViewController {
-
     @objc
     func dismissWasPressed() {
         dismiss(animated: true, completion: nil)
@@ -134,6 +129,7 @@ extension SPSortOrderViewController {
 }
 
 // MARK: - Constants
+
 //
 private enum Constants {
     static let numberOfSections = 1

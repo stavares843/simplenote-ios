@@ -1,10 +1,9 @@
 import Foundation
 
-
 // MARK: - Extractor
+
 //
 protocol Extractor {
-
     /// Accepted File Extension
     ///
     var acceptedType: String { get }

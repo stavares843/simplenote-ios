@@ -1,5 +1,5 @@
-import Foundation
 import AutomatticTracks
+import Foundation
 
 enum BuildConfiguration: String {
     case debug
@@ -9,7 +9,6 @@ enum BuildConfiguration: String {
     case unknown
 
     static var current: BuildConfiguration {
-
         #if DEBUG
             return .debug
         #elseif BUILD_INTERNAL
@@ -29,8 +28,8 @@ enum BuildConfiguration: String {
     }
 }
 
-extension BuildConfiguration : CustomStringConvertible {
+extension BuildConfiguration: CustomStringConvertible {
     var description: String {
-        return self.rawValue
+        return rawValue
     }
 }

@@ -1,8 +1,8 @@
 import Foundation
 import OnePasswordExtension
 
-
 // MARK: - SPAuthError
+
 //
 enum SPAuthError: Error {
     case onePasswordCancelled
@@ -13,11 +13,10 @@ enum SPAuthError: Error {
     case unknown
 }
 
-
 // MARK: - SPAuthError Convenience Initializers
+
 //
 extension SPAuthError {
-
     /// Returns the SPAuthError matching a given OnePasswordError (If possible!)
     ///
     init?(onePasswordError: Error?) {
@@ -53,11 +52,10 @@ extension SPAuthError {
     }
 }
 
-
 // MARK: - SPAuthError Public Methods
+
 //
 extension SPAuthError {
-
     /// Returns the Error Title, for Alert purposes
     ///
     var title: String? {
@@ -74,7 +72,7 @@ extension SPAuthError {
     var message: String? {
         switch self {
         case .loginBadCredentials:
-            return NSLocalizedString("Could not login with the provided email address and password.", comment: "Message displayed when login fails");
+            return NSLocalizedString("Could not login with the provided email address and password.", comment: "Message displayed when login fails")
         case .signupBadCredentials:
             return NSLocalizedString("Could not create an account with the provided email address and password.", comment: "Error for bad email or password")
         case .signupUserAlreadyExists:

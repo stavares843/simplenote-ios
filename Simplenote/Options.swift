@@ -1,10 +1,9 @@
 import Foundation
 
-
 // MARK: - Wraps access to all of the UserDefault Values
+
 //
 class Options: NSObject {
-
     /// Shared Instance
     ///
     @objc
@@ -13,8 +12,6 @@ class Options: NSObject {
     /// User Defaults: Convenience
     ///
     private let defaults: UserDefaults
-
-
 
     /// Designated Initializer
     ///
@@ -28,11 +25,10 @@ class Options: NSObject {
     }
 }
 
-
 // MARK: - Actual Options!
+
 //
 extension Options {
-
     /// Indicates if the Notes List should be condensed (or not)
     ///
     @objc
@@ -99,11 +95,10 @@ extension Options {
     }
 }
 
-
 // MARK: - ObjC Convenience Methods
+
 //
 extension Options {
-
     /// Returns the *Description* for the current List's Sort Mode
     ///
     @objc
@@ -126,7 +121,7 @@ extension Options {
         defaults.removeObject(forKey: .listSortMode)
         defaults.removeObject(forKey: .searchSortMode)
     }
-    
+
     /// Returns the number of Preview Lines we should use, per note
     ///
     @objc
@@ -135,11 +130,10 @@ extension Options {
     }
 }
 
-
 // MARK: - Private
+
 //
 private extension Options {
-
     func migrateLegacyOptions() {
         guard defaults.containsObject(forKey: .listSortMode) == false else {
             return
@@ -162,8 +156,8 @@ private extension Options {
     }
 }
 
-
 // MARK: - Constants!
+
 //
 private enum Settings {
     static let numberOfPreviewLinesRegular = 3

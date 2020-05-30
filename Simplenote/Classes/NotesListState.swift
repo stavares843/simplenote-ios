@@ -1,18 +1,17 @@
 import Foundation
 
-
 // MARK: - NotesListState
+
 //
 enum NotesListState {
     case results
     case searching(keyword: String)
 }
 
-
 // MARK: - NotesListState: Public API
+
 //
 extension NotesListState {
-
     /// Indicates if the NotesList should display Note Entities for the current state
     ///
     var displaysNotes: Bool {
@@ -85,20 +84,20 @@ extension NotesListState {
 
         switch self {
         case .results:
-            subpredicates.append( NSPredicate.predicateForNotes(deleted: filter == .deleted) )
+            subpredicates.append(NSPredicate.predicateForNotes(deleted: filter == .deleted))
 
             switch filter {
-            case .tag(let name):
-                subpredicates.append( NSPredicate.predicateForNotes(tag: name) )
+            case let .tag(name):
+                subpredicates.append(NSPredicate.predicateForNotes(tag: name))
             case .untagged:
-                subpredicates.append( NSPredicate.predicateForUntaggedNotes() )
+                subpredicates.append(NSPredicate.predicateForUntaggedNotes())
             default:
                 break
             }
-        case .searching(let keyword):
+        case let .searching(keyword):
             subpredicates += [
                 NSPredicate.predicateForNotes(deleted: false),
-                NSPredicate.predicateForNotes(searchText: keyword)
+                NSPredicate.predicateForNotes(searchText: keyword),
             ]
         }
 
@@ -137,15 +136,15 @@ extension NotesListState {
     ///
     func descriptorsForTags() -> [NSSortDescriptor] {
         return [
-            NSSortDescriptor.descriptorForTags()
+            NSSortDescriptor.descriptorForTags(),
         ]
     }
 }
 
-
 // MARK: - Equality
+
 //
-func ==(lhs: NotesListState, rhs: NotesListState) -> Bool {
+func == (lhs: NotesListState, rhs: NotesListState) -> Bool {
     switch (lhs, rhs) {
     case (.results, .results):
         return true
@@ -156,6 +155,6 @@ func ==(lhs: NotesListState, rhs: NotesListState) -> Bool {
     }
 }
 
-func !=(lhs: NotesListState, rhs: NotesListState) -> Bool {
+func != (lhs: NotesListState, rhs: NotesListState) -> Bool {
     return !(lhs == rhs)
 }

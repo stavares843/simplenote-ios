@@ -1,11 +1,10 @@
-import Foundation
 import CoreSpotlight
-
+import Foundation
 
 // MARK: - AppDelegate Shortcuts Methods
+
 //
 class ShortcutsHandler: NSObject {
-
     /// This is, gentlemen, a singleton.
     ///
     @objc
@@ -15,7 +14,7 @@ class ShortcutsHandler: NSObject {
     ///
     private let activities = [
         NSUserActivity.newNoteActivity(),
-        NSUserActivity.launchActivity()
+        NSUserActivity.launchActivity(),
     ]
 
     /// Registers all of the Simplenote-Y Activities.
@@ -68,11 +67,10 @@ class ShortcutsHandler: NSObject {
     }
 }
 
-
 // MARK: - Private Methods
+
 //
 private extension ShortcutsHandler {
-
     /// Displays a Note, whenever the UniqueIdentifier is contained within a given UserActivity instance.
     ///
     func presentNote(for userActivity: NSUserActivity) {

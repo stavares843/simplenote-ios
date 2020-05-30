@@ -1,12 +1,11 @@
-import Foundation
-import UIKit
-import Gridicons
 import AutomatticTracks
+import Foundation
+import Gridicons
+import UIKit
 
 /// Privacy: Lets our users Opt Out from any (and all) trackers.
 ///
 class SPPrivacyViewController: SPTableViewController {
-
     /// Switch Control: Rules the Analytics State
     ///
     private let analyticsSwitch = UISwitch()
@@ -14,7 +13,7 @@ class SPPrivacyViewController: SPTableViewController {
     /// TableView Sections
     ///
     private var sections: [Section] {
-        var sections = [ Section(rows: [.share, .legend, .learn]) ]
+        var sections = [Section(rows: [.share, .legend, .learn])]
 
         if BuildConfiguration.is(.debug) {
             sections.append(Section(rows: [.crash]))
@@ -31,9 +30,8 @@ class SPPrivacyViewController: SPTableViewController {
             return true
         }
 
-        return preferences.analytics_enabled?.boolValue ==  true
+        return preferences.analytics_enabled?.boolValue == true
     }
-
 
     // MARK: - Overridden Methods
 
@@ -44,11 +42,11 @@ class SPPrivacyViewController: SPTableViewController {
         setupSwitch()
     }
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    override func numberOfSections(in _: UITableView) -> Int {
         return sections.count
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {
         return sections[section].rows.count
     }
 
@@ -88,11 +86,10 @@ class SPPrivacyViewController: SPTableViewController {
     }
 }
 
+// MARK: - Event Handlers
 
-// MARK - Event Handlers
 //
 extension SPPrivacyViewController {
-
     /// Updates the Analytics Setting
     ///
     @objc func switchDidChange(sender: UISwitch) {
@@ -116,11 +113,10 @@ extension SPPrivacyViewController {
     }
 }
 
-
 // MARK: - Initialization Methods
+
 //
 private extension SPPrivacyViewController {
-
     /// Setup: NavigationItem
     ///
     func setupNavigationItem() {
@@ -183,8 +179,8 @@ private extension SPPrivacyViewController {
     }
 }
 
-
 // MARK: - Private Types
+
 //
 private struct Section {
     let rows: [Row]
@@ -198,6 +194,6 @@ private enum Row {
 }
 
 // Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(_ input: [String: Any]) -> [UIApplication.OpenExternalURLOptionsKey: Any] {
-	return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value)})
+private func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(_ input: [String: Any]) -> [UIApplication.OpenExternalURLOptionsKey: Any] {
+    return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value) })
 }

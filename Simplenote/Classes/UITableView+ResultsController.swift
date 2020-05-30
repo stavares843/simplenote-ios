@@ -1,11 +1,10 @@
 import Foundation
 import UIKit
 
-
 // MARK: - ResultsTableAnimations: Defines the Animations to be applied during Table Update(s)
+
 //
 struct ResultsTableAnimations {
-
     /// TableViewRowAnimation to be applied during Delete OP's.
     ///
     let delete: UITableView.RowAnimation = .fade
@@ -27,11 +26,10 @@ struct ResultsTableAnimations {
     static let standard = ResultsTableAnimations()
 }
 
-
 // MARK: - UITableView ResultsController Convenience Methods
+
 //
 extension UITableView {
-
     func performBatchChanges(objectChanges: [ResultsObjectChange], sectionChanges: [ResultsSectionChange], onCompletion: @escaping (Bool) -> Void) {
         performBatchUpdates({
             for change in objectChanges {
@@ -47,27 +45,27 @@ extension UITableView {
 
     func resultsController(didChangeObject rowChange: ResultsObjectChange, animations: ResultsTableAnimations = .standard) {
         switch rowChange {
-        case .delete(let indexPath):
+        case let .delete(indexPath):
             deleteRows(at: [indexPath], with: animations.delete)
 
-        case .insert(let newIndexPath):
+        case let .insert(newIndexPath):
             insertRows(at: [newIndexPath], with: animations.insert)
 
-        case .move(let oldIndexPath, let newIndexPath):
+        case let .move(oldIndexPath, newIndexPath):
             deleteRows(at: [oldIndexPath], with: animations.move)
             insertRows(at: [newIndexPath], with: animations.move)
 
-        case .update(let indexPath):
+        case let .update(indexPath):
             reloadRows(at: [indexPath], with: animations.update)
         }
     }
 
     func resultsController(didChangeSection sectionChange: ResultsSectionChange, animations: ResultsTableAnimations = .standard) {
         switch sectionChange {
-        case .delete(let sectionIndex):
+        case let .delete(sectionIndex):
             deleteSections(IndexSet(integer: sectionIndex), with: animations.delete)
 
-        case .insert(let sectionIndex):
+        case let .insert(sectionIndex):
             insertSections(IndexSet(integer: sectionIndex), with: animations.insert)
         }
     }

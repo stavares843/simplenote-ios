@@ -1,6 +1,5 @@
 import UIKit
 
-
 /// Allows certain presented view controllers to request themselves to be
 /// presented at full size instead of inset within the container.
 ///
@@ -8,9 +7,7 @@ protocol ExtensionPresentationTarget {
     var shouldFillContentContainer: Bool { get }
 }
 
-
 final class ExtensionPresentationController: UIPresentationController {
-
     // MARK: - Private Properties
 
     private var presentDirection: Direction
@@ -30,11 +27,10 @@ final class ExtensionPresentationController: UIPresentationController {
          presenting presentingViewController: UIViewController?,
          presentDirection: Direction,
          dismissDirection: Direction) {
-
         self.presentDirection = presentDirection
         self.dismissDirection = dismissDirection
         super.init(presentedViewController: presentedViewController, presenting: presentingViewController)
-        self.addKeyboardObservers()
+        addKeyboardObservers()
     }
 
     deinit {
@@ -61,7 +57,7 @@ final class ExtensionPresentationController: UIPresentationController {
 
         let widthRatio = traitCollection.verticalSizeClass != .compact ? Appearance.widthRatio : Appearance.widthRatioCompactVertical
         let heightRatio = traitCollection.verticalSizeClass != .compact ? Appearance.heightRatio : Appearance.heightRatioCompactVertical
-        return CGSize(width: (parentSize.width * widthRatio), height: (parentSize.height * heightRatio))
+        return CGSize(width: parentSize.width * widthRatio, height: parentSize.height * heightRatio)
     }
 
     override func containerViewWillLayoutSubviews() {
@@ -97,18 +93,17 @@ final class ExtensionPresentationController: UIPresentationController {
     }
 }
 
-
 // MARK: - KeyboardObservable Conformance
+
 //
 extension ExtensionPresentationController: KeyboardObservable {
-
-    func keyboardWillShow(beginFrame: CGRect?, endFrame: CGRect?, animationDuration: TimeInterval?, animationCurve: UInt?) {
+    func keyboardWillShow(beginFrame _: CGRect?, endFrame: CGRect?, animationDuration: TimeInterval?, animationCurve: UInt?) {
         let keyboardFrame = endFrame ?? .zero
         let duration = animationDuration ?? Constants.defaultAnimationDuration
         animate(with: presentedView!.convert(keyboardFrame, from: nil), duration: duration, animationCurve: animationCurve)
     }
 
-    func keyboardWillHide(beginFrame: CGRect?, endFrame: CGRect?, animationDuration: TimeInterval?, animationCurve: UInt?) {
+    func keyboardWillHide(beginFrame _: CGRect?, endFrame: CGRect?, animationDuration: TimeInterval?, animationCurve: UInt?) {
         let keyboardFrame = endFrame ?? .zero
         let duration = animationDuration ?? Constants.defaultAnimationDuration
         animate(with: presentedView!.convert(keyboardFrame, from: nil), duration: duration, animationCurve: animationCurve)
@@ -121,7 +116,7 @@ extension ExtensionPresentationController: KeyboardObservable {
         if let animationCurve = animationCurve {
             animationOptions = UIView.AnimationOptions(rawValue: animationCurve)
         }
-        
+
         UIView.animate(withDuration: duration, delay: 0.0, options: animationOptions, animations: {
             self.presentedView?.frame = translatedFrame
         })
@@ -133,7 +128,7 @@ extension ExtensionPresentationController: KeyboardObservable {
         let presentedViewBottom = presentedFrame.origin.y + presentedFrame.height
         let offset = presentedViewBottom - keyboardTop
 
-        guard offset > 0.0  else {
+        guard offset > 0.0 else {
             return presentedFrame
         }
 
@@ -143,25 +138,24 @@ extension ExtensionPresentationController: KeyboardObservable {
     }
 }
 
-
 // MARK: - Constants
+
 //
 private extension ExtensionPresentationController {
-
     struct Constants {
-        static let fullAlpha: CGFloat                     = 1.0
-        static let zeroAlpha: CGFloat                     = 0.0
-        static let defaultAnimationDuration: Double       = 0.25
-        static let bottomKeyboardMarginPortrait: CGFloat  = 8.0
+        static let fullAlpha: CGFloat = 1.0
+        static let zeroAlpha: CGFloat = 0.0
+        static let defaultAnimationDuration: Double = 0.25
+        static let bottomKeyboardMarginPortrait: CGFloat = 8.0
         static let bottomKeyboardMarginLandscape: CGFloat = 8.0
     }
 
     struct Appearance {
-        static let dimmingViewBGColor                  = UIColor(white: 0.0, alpha: 0.5)
-        static let cornerRadius: CGFloat               = 4.0
-        static let widthRatio: CGFloat                 = 0.90
-        static let widthRatioCompactVertical: CGFloat  = 0.90
-        static let heightRatio: CGFloat                = 0.80
+        static let dimmingViewBGColor = UIColor(white: 0.0, alpha: 0.5)
+        static let cornerRadius: CGFloat = 4.0
+        static let widthRatio: CGFloat = 0.90
+        static let widthRatioCompactVertical: CGFloat = 0.90
+        static let heightRatio: CGFloat = 0.80
         static let heightRatioCompactVertical: CGFloat = 0.80
     }
 }

@@ -1,7 +1,6 @@
 import XCTest
 
 class SimplenoteScreenshots: XCTestCase {
-
     override func setUp() {
         continueAfterFailure = false
         UIPasteboard.general.strings = []
@@ -207,12 +206,11 @@ class SimplenoteScreenshots: XCTestCase {
 }
 
 extension XCUIElement {
-
-    func pasteText(text: String) -> Void {
+    func pasteText(text: String) {
         let previousPasteboardContents = UIPasteboard.general.string
         UIPasteboard.general.string = text
 
-        self.press(forDuration: 1.2)
+        press(forDuration: 1.2)
         XCUIApplication().menuItems.firstMatch.tap()
 
         if let string = previousPasteboardContents {

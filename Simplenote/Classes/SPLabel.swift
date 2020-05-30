@@ -1,16 +1,14 @@
 import Foundation
 import UIKit
 
-
 // MARK: - SPLabel: Standard UIKit Label with extra properties. And batteries!
+
 //
 @IBDesignable
 class SPLabel: UILabel {
-
     /// # Insets to be applied over the actual text
     ///
     @IBInspectable var textInsets = UIEdgeInsets.zero
-
 
     // MARK: - Overrides
 

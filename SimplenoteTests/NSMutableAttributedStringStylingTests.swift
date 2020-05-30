@@ -1,18 +1,17 @@
-import XCTest
 @testable import Simplenote
-
+import XCTest
 
 // MARK: - NSMutableAttributedString Styling Tests
+
 //
 class NSMutableAttributedStringStylingTests: XCTestCase {
-
     /// Verifies that `NSRegularExpression.regexForChecklists` will not match checklists that are in the middle of a string
     ///
     func testRegexForChecklistsWillNotMatchChecklistsLocatedAtTheMiddleOfTheString() {
         let string = "This is a badly formed todo - [ ] Buy avocados - []"
         let regex = NSRegularExpression.regexForChecklists
         let matches = regex.matches(in: string, options: [], range: string.fullRange)
-        
+
         XCTAssertTrue(matches.isEmpty)
     }
 
@@ -52,7 +51,7 @@ class NSMutableAttributedStringStylingTests: XCTestCase {
         let string = "ToDo\n\n- [ ] Buy avocados\n- [ ] Ship it\n- [x ] Malformed!\n- [x] Correct."
         let regex = NSRegularExpression.regexForChecklists
         let matches = regex.matches(in: string, options: [], range: string.fullRange)
-        
+
         XCTAssertEqual(matches.count, 3)
     }
 
@@ -102,7 +101,7 @@ class NSMutableAttributedStringStylingTests: XCTestCase {
         let samples = [
             (text: "           - [ ] Buy avocados - [ ]", expected: 1),
             (text: "ToDo\n\n- [ ] Buy avocados\n- [ ] Ship it\n- [x ] Malformed!\n- [x] Correct.", expected: 3),
-            (text: "- [] Item", expected: 1)
+            (text: "- [] Item", expected: 1),
         ]
 
         let regex = NSRegularExpression.regexForChecklists
@@ -123,7 +122,7 @@ class NSMutableAttributedStringStylingTests: XCTestCase {
             (text: "           - [ ] Buy avocados - [ ]", expected: 2),
             (text: "ToDo\n\n- [ ] Buy avocados\n- [ ] Ship it\n- [x ] Malformed!\n- [x] Correct.", expected: 3),
             (text: "- [] Item", expected: 1),
-            (text: "The second regex should consider this as a valid checklist - [ ] Buy avocados - []", expected: 2)
+            (text: "The second regex should consider this as a valid checklist - [ ] Buy avocados - []", expected: 2),
         ]
 
         let regex = NSRegularExpression.regexForChecklistsEmbeddedAnywhere

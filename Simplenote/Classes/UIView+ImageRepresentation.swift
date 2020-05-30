@@ -1,11 +1,10 @@
 import Foundation
 import UIKit
 
-
 // MARK: - UIView: Image Representation Helpers
+
 //
 extension UIView {
-
     /// Returns a UIImage containing a rastrerized version of the receiver.
     ///
     @objc

@@ -1,12 +1,11 @@
 import Foundation
 import UIKit
 
-
 // MARK: - SPPlaceholderView
+
 //
 @objcMembers
 class SPPlaceholderView: UIView {
-
     /// DisplayMode: Defines the way in which the Placeholder behaves
     ///
     enum DisplayMode {
@@ -22,7 +21,6 @@ class SPPlaceholderView: UIView {
             displayModeWasChanged()
         }
     }
-
 
     /// Placeholder Image
     ///
@@ -52,7 +50,6 @@ class SPPlaceholderView: UIView {
         return stackView
     }()
 
-
     // MARK: - Initializers
 
     init() {
@@ -68,11 +65,10 @@ class SPPlaceholderView: UIView {
     }
 }
 
-
 // MARK: - Private Methods
+
 //
 private extension SPPlaceholderView {
-
     func configureSubviews() {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(stackView)
@@ -83,7 +79,7 @@ private extension SPPlaceholderView {
             stackView.topAnchor.constraint(equalTo: topAnchor),
             stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
             stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: trailingAnchor)
+            stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
         ])
     }
 
@@ -94,8 +90,8 @@ private extension SPPlaceholderView {
     }
 }
 
-
 // MARK: - Constants
+
 //
 private enum Constants {
     static let imageViewAlpha = CGFloat(0.5)
@@ -103,11 +99,10 @@ private enum Constants {
     static let stackViewSpacing = CGFloat(25)
 }
 
-
 // MARK: - SPPlaceholderView.DisplayMode Properties
+
 //
 extension SPPlaceholderView.DisplayMode {
-
     var displaysPicture: Bool {
         guard self == .text else {
             return true

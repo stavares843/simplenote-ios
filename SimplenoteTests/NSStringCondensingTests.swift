@@ -1,19 +1,18 @@
 import Foundation
-import XCTest
 @testable import Simplenote
-
+import XCTest
 
 // MARK: - NSString+Condensing Unit Tests
+
 //
 class NSStringCondensingTests: XCTestCase {
-
     /// Verifies that `generatePreviewStrings` yields an empty title and null body whenever the receiver is an empty string
     ///
     func testGeneratePreviewStringsYieldEmptyStringAndNullBodyWheneverTheReceiverIsEmpty() {
         let sample: NSString = ""
 
         let expectation = self.expectation(description: "generatePreviewStrings")
-        sample.generatePreviewStrings { (title, body) in
+        sample.generatePreviewStrings { title, body in
             XCTAssertEqual(title, "")
             XCTAssertNil(body)
             expectation.fulfill()
@@ -28,7 +27,7 @@ class NSStringCondensingTests: XCTestCase {
         let sample: NSString = "A lala lala long long le long long long YEAH!"
 
         let expectation = self.expectation(description: "generatePreviewStrings")
-        sample.generatePreviewStrings { (title, body) in
+        sample.generatePreviewStrings { title, body in
             XCTAssertEqual(title as NSString, sample)
             XCTAssertNil(body)
             expectation.fulfill()
@@ -43,7 +42,7 @@ class NSStringCondensingTests: XCTestCase {
         let sample: NSString = " \n\r\n\r\n\nMwah ha ha\n\n\n\n   \n  \n"
 
         let expectation = self.expectation(description: "generatePreviewStrings")
-        sample.generatePreviewStrings { (title, body) in
+        sample.generatePreviewStrings { title, body in
             XCTAssertEqual(title, "Mwah ha ha")
             XCTAssertNil(body)
             expectation.fulfill()
@@ -58,7 +57,7 @@ class NSStringCondensingTests: XCTestCase {
         let sample: NSString = "# Title"
 
         let expectation = self.expectation(description: "generatePreviewStrings")
-        sample.generatePreviewStrings { (title, body) in
+        sample.generatePreviewStrings { title, body in
             XCTAssertEqual(title, "Title")
             XCTAssertNil(body)
             expectation.fulfill()
@@ -73,7 +72,7 @@ class NSStringCondensingTests: XCTestCase {
         let sample: NSString = "\n\r\n# Title\n\n\n\nLINE1\n\n\r\n\nLINE2\n\nLINE3\n\r\n\n"
 
         let expectation = self.expectation(description: "generatePreviewStrings")
-        sample.generatePreviewStrings { (title, body) in
+        sample.generatePreviewStrings { title, body in
             XCTAssertEqual(title, "Title")
             XCTAssertEqual(body, "LINE1 LINE2 LINE3")
             expectation.fulfill()

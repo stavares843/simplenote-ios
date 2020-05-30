@@ -2,7 +2,6 @@
 ///
 @objcMembers
 class SPCredentials: NSObject {
-
     /// AppBot
     ///
     static let appbotKey = "not-required"

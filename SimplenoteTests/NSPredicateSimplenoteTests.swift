@@ -1,12 +1,11 @@
 import Foundation
-import XCTest
 @testable import Simplenote
-
+import XCTest
 
 // MARK: - NSPredicate+Simplenote Unit Tests
+
 //
 class NSPredicateSimplenoteTests: XCTestCase {
-
     /// Verifies that `NSPredicate.predicateForNotes(searchText:)` match entities that contain a single specified keyword
     ///
     func testPredicateForNotesWithSearchTextMatchesNotesContainingTheSpecifiedKeyword() {
@@ -310,12 +309,11 @@ class NSPredicateSimplenoteTests: XCTestCase {
     }
 }
 
-
 // MARK: - MockupNote: Convenience class to help us test NSPredicate(s)
+
 //
 @objcMembers
 private class MockupNote: NSObject {
-
     /// Entity's Contents
     ///
     dynamic var content: String?
@@ -333,12 +331,11 @@ private class MockupNote: NSObject {
     dynamic var tags: String?
 }
 
-
 // MARK: - MockupTag: Convenience class to help us test NSPredicate(s)
+
 //
 @objcMembers
 private class MockupTag: NSObject {
-
     /// Entity's System Tags
     ///
     dynamic var name: String?

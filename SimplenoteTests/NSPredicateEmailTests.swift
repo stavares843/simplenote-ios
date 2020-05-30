@@ -1,12 +1,11 @@
 import Foundation
-import XCTest
 @testable import Simplenote
-
+import XCTest
 
 // MARK: - NSPredicate+Email Unit Tests
+
 //
 class NSPredicateEmailTests: XCTestCase {
-
     /// Verifies that `predicateForEmailValidation` evaluates false whenever the input string is empty
     ///
     func testPredicateForEmailValidationEvaluatesFalseOnEmptyStrings() {

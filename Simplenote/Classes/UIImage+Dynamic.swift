@@ -1,11 +1,10 @@
 import Foundation
 import UIKit
 
-
 // MARK: - Dynamic Images
+
 //
 extension UIImage {
-
     /// Returns the SearchBar Background Image
     ///
     class var searchBarBackgroundImage: UIImage {
@@ -15,8 +14,8 @@ extension UIImage {
     }
 }
 
-
 // MARK: - Constants
+
 //
 private enum SearchBackgroundMetrics {
     static let alpha = CGFloat(0.25)

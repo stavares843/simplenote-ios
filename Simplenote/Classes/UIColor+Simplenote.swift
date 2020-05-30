@@ -1,11 +1,10 @@
 import Foundation
 import UIKit
 
-
 // MARK: - Simplenote UIColor(s)
+
 //
 extension UIColor {
-
     /// Returns the UIColor instance matching a given UIColorName. If any
     ///
     @objc
@@ -19,9 +18,9 @@ extension UIColor {
 }
 
 // MARK: - Private
+
 //
 private extension UIColor {
-
     static var theme: VSTheme {
         return VSThemeManager.shared().theme()
     }

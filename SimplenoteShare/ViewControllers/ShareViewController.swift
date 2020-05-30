@@ -1,22 +1,19 @@
-import UIKit
-import Social
 import SAMKeychain
-
+import Social
+import UIKit
 
 typealias CompletionBlock = () -> Void
 
 /// Main VC for Simplenote's Share Extension
 ///
 class ShareViewController: UIViewController {
-
     /// This completion handler closure is executed when this VC is dismissed.
     ///
     @objc var dismissalCompletionBlock: CompletionBlock?
 
-
     // MARK: Private Properties
 
-    @IBOutlet private weak var textView: UITextView!
+    @IBOutlet private var textView: UITextView!
 
     /// Returns the Main App's SimperiumToken
     ///
@@ -56,7 +53,6 @@ class ShareViewController: UIViewController {
         return button
     }()
 
-
     // MARK: Initialization
 
     /// Designated Initializer
@@ -66,10 +62,9 @@ class ShareViewController: UIViewController {
         super.init(nibName: type(of: self).nibName, bundle: nil)
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
 
     // MARK: UIViewController Lifecycle
 
@@ -91,11 +86,10 @@ class ShareViewController: UIViewController {
     }
 }
 
-
 // MARK: - Actions
+
 //
 private extension ShareViewController {
-
     @objc func cancelWasPressed() {
         dismissExtension()
     }
@@ -132,15 +126,14 @@ private extension ShareViewController {
     ///
     func dismissExtension() {
         view.endEditing(true)
-        dismiss(animated: true, completion: self.dismissalCompletionBlock)
+        dismiss(animated: true, completion: dismissalCompletionBlock)
     }
 }
 
-
 // MARK: - Token Validation
+
 //
 private extension ShareViewController {
-
     func ensureSimperiumTokenIsValid() {
         guard isSimperiumTokenInvalid() else {
             return
@@ -168,11 +161,10 @@ private extension ShareViewController {
     }
 }
 
-
 // MARK: - Configuration
+
 //
 private extension ShareViewController {
-
     func setupNavigationBar() {
         navigationItem.leftBarButtonItem = cancelButton
         navigationItem.rightBarButtonItem = nextButton
@@ -196,9 +188,9 @@ private extension ShareViewController {
     }
 }
 
-
 // MARK: - Constants
+
 //
 private struct Constants {
-    static let textViewInsets =  UIEdgeInsets(top: 8.0, left: 12.0, bottom: 8.0, right: 12.0)
+    static let textViewInsets = UIEdgeInsets(top: 8.0, left: 12.0, bottom: 8.0, right: 12.0)
 }

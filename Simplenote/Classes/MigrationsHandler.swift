@@ -1,10 +1,9 @@
 import Foundation
 
-
 // MARK: - Simplenote's Upgrade handling flows
+
 //
 class MigrationsHandler: NSObject {
-
     /// Returns the Runtime version
     ///
     private let runtimeVersion = Bundle.main.shortVersionString
@@ -38,11 +37,10 @@ class MigrationsHandler: NSObject {
     }
 }
 
-
 // MARK: - Private Methods
+
 //
 private extension MigrationsHandler {
-
     /// Handles a migration *from* a given version, *towards* a given version
     ///
     func processMigrations(from: String, to: String) {
@@ -55,11 +53,10 @@ private extension MigrationsHandler {
     }
 }
 
-
 // MARK: - Migration from 4.8.0
+
 //
 private extension MigrationsHandler {
-
     /// Display the Sort Options Reset Alert whenever:
     ///
     /// A.  The user comes from 4.8.0
@@ -70,8 +67,8 @@ private extension MigrationsHandler {
         let simperium = SPAppDelegate.shared().simperium
         guard Options.shared.listSortMode == .alphabeticallyDescending,
             simperium.user.authenticated() == true
-            else {
-                    return
+        else {
+            return
         }
 
         presentSortOptionsResetAlert()
@@ -82,7 +79,7 @@ private extension MigrationsHandler {
     func presentSortOptionsResetAlert() {
         let title = String()
         let message = NSLocalizedString("Our update may have changed the order in which your notes appear. Would you like to review sort settings?",
-                                     comment: "AlertController's Payload for the broken Sort Options Fix")
+                                        comment: "AlertController's Payload for the broken Sort Options Fix")
 
         let controller = UIAlertController(title: title, message: message, preferredStyle: .alert)
 
@@ -113,8 +110,8 @@ private extension MigrationsHandler {
     }
 }
 
-
 // MARK: - Known App Versions
+
 //
 private enum SimplenoteVersion {
     static let mk4_8_0 = "4.8.0"

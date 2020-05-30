@@ -1,16 +1,13 @@
-import XCTest
-import XCTest
 @testable import Simplenote
-
+import XCTest
 
 // MARK: - AuthenticationValidator Tests
+
 //
 class AuthenticationValidatorTests: XCTestCase {
-
     /// Testing Validator
     ///
     let validator = AuthenticationValidator()
-
 
     /// Verifies that `performUsernameValidation` returns `true` when the input string is valid
     ///
@@ -19,7 +16,7 @@ class AuthenticationValidatorTests: XCTestCase {
             validator.performUsernameValidation(username: "j@j.com"),
             validator.performUsernameValidation(username: "something@simplenote.blog"),
             validator.performUsernameValidation(username: "something@simplenote.blog"),
-            validator.performUsernameValidation(username: "something@simplenote.blog.ar")
+            validator.performUsernameValidation(username: "something@simplenote.blog.ar"),
         ]
 
         for result in results {
@@ -53,7 +50,7 @@ class AuthenticationValidatorTests: XCTestCase {
             validator.performPasswordValidation(username: "somethinghere", password: "\t12345678"),
             validator.performPasswordValidation(username: "somethinghere", password: "\n12345678"),
             validator.performPasswordValidation(username: "somethinghere", password: "1234\n5678\t"),
-            validator.performPasswordValidation(username: "somethinghere", password: "12345678\t")
+            validator.performPasswordValidation(username: "somethinghere", password: "12345678\t"),
         ]
 
         for result in results {

@@ -1,11 +1,10 @@
 import Foundation
 import UIKit
 
-
 // MARK: - Renders a customized Action Sheet
+
 //
 class SPSheetController: UIViewController {
-
     /// Dimming Background
     ///
     @IBOutlet private var backgroundView: UIView!
@@ -42,8 +41,6 @@ class SPSheetController: UIViewController {
     ///
     var onClickButton1: (() -> Void)?
 
-
-
     /// Designated Initializer
     ///
     init() {
@@ -53,10 +50,9 @@ class SPSheetController: UIViewController {
 
     /// Required!
     ///
-    required init?(coder: NSCoder) {
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
 
     // MARK: - Required Methods
 
@@ -69,7 +65,6 @@ class SPSheetController: UIViewController {
         super.viewDidAppear(animated)
         performSlideUpAnimation()
     }
-
 
     // MARK: - Public Methods
 
@@ -93,11 +88,10 @@ class SPSheetController: UIViewController {
     }
 }
 
-
 // MARK: - Private Methods
+
 //
 private extension SPSheetController {
-
     func attachView(to containerView: UIView) {
         containerView.addSubview(view)
 
@@ -105,7 +99,7 @@ private extension SPSheetController {
             view.leftAnchor.constraint(equalTo: containerView.leftAnchor),
             view.rightAnchor.constraint(equalTo: containerView.rightAnchor),
             view.topAnchor.constraint(equalTo: containerView.topAnchor),
-            view.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
+            view.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
         ])
     }
 
@@ -117,11 +111,10 @@ private extension SPSheetController {
     }
 }
 
-
 // MARK: - Actions
+
 //
 private extension SPSheetController {
-
     @IBAction func button0WasPressed() {
         dismissWithAnimation()
         onClickButton0?()
@@ -137,11 +130,10 @@ private extension SPSheetController {
     }
 }
 
-
 // MARK: - Animations
+
 //
 private extension SPSheetController {
-
     func performSlideUpAnimation(onCompletion: ((Bool) -> Void)? = nil) {
         UIView.animate(withDuration: UIKitConstants.animationShortDuration, delay: .zero, usingSpringWithDamping: UIKitConstants.animationTightDampening, initialSpringVelocity: .zero, options: [], animations: {
             self.showSubviews()

@@ -1,11 +1,10 @@
 import Foundation
 import UIKit
 
-
 // MARK: - SPSortBar
+
 //
 class SPSortBar: UIView {
-
     /// Background Blur
     ///
     private let blurView = SPBlurEffectView.navigationBarBlurView()
@@ -53,7 +52,6 @@ class SPSortBar: UIView {
     ///
     var onSortOrderPress: (() -> Void)?
 
-
     // MARK: - Lifecycle
 
     deinit {
@@ -76,11 +74,10 @@ class SPSortBar: UIView {
     }
 }
 
-
 // MARK: - Private Methods
+
 //
 private extension SPSortBar {
-
     func setupDividerView() {
         dividerHeightConstraint.constant = UIScreen.main.pointToPixelRatio
     }
@@ -113,7 +110,7 @@ private extension SPSortBar {
             blurView.leadingAnchor.constraint(equalTo: leadingAnchor),
             blurView.trailingAnchor.constraint(equalTo: trailingAnchor),
             blurView.topAnchor.constraint(equalTo: topAnchor),
-            blurView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            blurView.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
     }
 
@@ -125,11 +122,10 @@ private extension SPSortBar {
     }
 }
 
-
 // MARK: - Notifications
+
 //
 private extension SPSortBar {
-
     func startListeningToNotifications() {
         let nc = NotificationCenter.default
         nc.addObserver(self, selector: #selector(themeDidChange), name: .VSThemeManagerThemeDidChange, object: nil)
@@ -144,11 +140,10 @@ private extension SPSortBar {
     }
 }
 
-
 // MARK: - Action Handlers
+
 //
 private extension SPSortBar {
-
     @IBAction func sortOrderWasPressed() {
         onSortOrderPress?()
     }

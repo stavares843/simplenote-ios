@@ -1,11 +1,10 @@
 import Foundation
 import UIKit
 
-
 // MARK: - UIFont Simplenote Helpers
+
 //
 extension UIFont {
-
     /// Default Asset Height Multiplier
     ///
     static let defaultInlineAssetSizeMultiplier = CGFloat(0.7)
@@ -34,8 +33,8 @@ extension UIFont {
     ///
     private static func uncachedPreferredFont(for style: TextStyle, weight: Weight) -> UIFont {
         let descriptor = UIFontDescriptor
-                            .preferredFontDescriptor(withTextStyle: style)
-                            .addingAttributes([.traits: [UIFontDescriptor.TraitKey.weight: weight]])
+            .preferredFontDescriptor(withTextStyle: style)
+            .addingAttributes([.traits: [UIFontDescriptor.TraitKey.weight: weight]])
 
         // In iOS 11 we must resort to a non Dynamic Type mechanism, since the proper API simply does
         // not respond well.
@@ -47,11 +46,10 @@ extension UIFont {
     }
 }
 
-
 // MARK: - FontCache: Performance Helper!
+
 //
 private class FontCache {
-
     /// Internal Cache
     ///
     private var cache = [UIFont.TextStyle: [UIFont.Weight: UIFont]]()
@@ -59,7 +57,6 @@ private class FontCache {
     /// Yes. Another Singleton!
     ///
     static let shared = FontCache()
-
 
     /// (Private) Initializer
     ///
@@ -88,11 +85,10 @@ private class FontCache {
     }
 }
 
-
 // MARK: - Private Methods
+
 //
 private extension FontCache {
-
     func startListeningToNotifications() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(contentSizeCategoryDidChange),

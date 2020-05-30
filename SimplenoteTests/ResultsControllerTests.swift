@@ -1,12 +1,11 @@
-import XCTest
 import CoreData
 @testable import Simplenote
-
+import XCTest
 
 // MARK: - ResultsController Unit Tests
+
 //
 class ResultsControllerTests: XCTestCase {
-
     /// InMemory Storage!
     ///
     private let storage = MockupStorageManager()
@@ -27,14 +26,12 @@ class ResultsControllerTests: XCTestCase {
         NSSortDescriptor(key: #selector(getter: Note.content).description, ascending: true)
     }
 
-
     // MARK: - Overridden Methods
 
     override func setUp() {
         super.setUp()
         storage.reset()
     }
-
 
     /// Verifies that the Results Controller has an Empty Section right after the Fetch OP is performed.
     ///
@@ -46,7 +43,6 @@ class ResultsControllerTests: XCTestCase {
         XCTAssertEqual(resultsController.sections.count, 1)
         XCTAssertEqual(resultsController.sections.first?.objects?.count, 0)
     }
-
 
     /// Verifies that ResultsController does pick up pre-existant entities, right after performFetch runs.
     ///
@@ -61,7 +57,6 @@ class ResultsControllerTests: XCTestCase {
         XCTAssertEqual(resultsController.sections.first?.objects?.count, 1)
     }
 
-
     /// Verifies that ResultsController does pick up entities inserted after being instantiated.
     ///
     func testResultsControllerPicksUpEntitiesInsertedAfterInstantiation() {
@@ -74,7 +69,6 @@ class ResultsControllerTests: XCTestCase {
         XCTAssertEqual(resultsController.sections.count, 1)
         XCTAssertEqual(resultsController.sections.first?.objects?.count, 1)
     }
-
 
     /// Verifies that `sectionNameKeyPath` effectively causes the ResultsController to produce multiple sections, based on the grouping parameter.
     ///
@@ -99,7 +93,6 @@ class ResultsControllerTests: XCTestCase {
         }
     }
 
-
     /// Verifies that `object(at indexPath:)` effectively returns the expected Entity.
     ///
     func testObjectAtIndexPathReturnsExpectedEntity() {
@@ -117,7 +110,6 @@ class ResultsControllerTests: XCTestCase {
         XCTAssertEqual(insertedNote.simperiumKey, retrievedNote.simperiumKey)
         XCTAssertEqual(insertedNote.content, retrievedNote.content)
     }
-
 
     /// Verifies that `onWillChangeContent` is called *before* anything is updated.
     ///
@@ -165,7 +157,6 @@ class ResultsControllerTests: XCTestCase {
         waitForExpectations(timeout: Constants.expectationTimeout, handler: nil)
     }
 
-
     /// Verifies that `onDidChangeObject` is called whenever a new object is inserted.
     ///
     func testOnDidChangeObjectIsEffectivelyCalledOnceNewObjectsAreInserted() {
@@ -174,7 +165,7 @@ class ResultsControllerTests: XCTestCase {
 
         let expectation = self.expectation(description: "onDidChange")
         resultsController.onDidChangeObject = { change in
-            guard case .insert(let newIndexPath) = change else {
+            guard case let .insert(newIndexPath) = change else {
                 XCTFail()
                 return
             }
@@ -190,7 +181,6 @@ class ResultsControllerTests: XCTestCase {
         waitForExpectations(timeout: Constants.expectationTimeout, handler: nil)
     }
 
-
     /// Verifies that `onDidChangeSection` is called whenever new sections are added.
     ///
     func testOnDidChangeSectionIsCalledWheneverNewSectionsAreAdded() {
@@ -201,7 +191,7 @@ class ResultsControllerTests: XCTestCase {
 
         let expectation = self.expectation(description: "onDidChange")
         resultsController.onDidChangeSection = { change in
-            guard case .insert(_) = change else {
+            guard case .insert = change else {
                 XCTFail()
                 return
             }
@@ -215,7 +205,6 @@ class ResultsControllerTests: XCTestCase {
         waitForExpectations(timeout: Constants.expectationTimeout, handler: nil)
     }
 
-
     /// Verifies that `fetchedObjects` effectively  returns all of the objects that are expected to be available.
     ///
     func testFetchedObjectsEffectivelyReturnsAvailableEntities() {
@@ -224,7 +213,7 @@ class ResultsControllerTests: XCTestCase {
 
         var expected = [String: Note]()
 
-        for content in [ "first", "second", "third" ] {
+        for content in ["first", "second", "third"] {
             let note = storage.insertSampleNote()
             note.content = content
             expected[content] = note
@@ -237,7 +226,6 @@ class ResultsControllerTests: XCTestCase {
         }
     }
 
-
     /// Verifies that `numberOfObjects` returns zero, when the collection is empty.
     ///
     func testEmptyStorageReturnsZeroNumberOfObjects() {
@@ -246,7 +234,6 @@ class ResultsControllerTests: XCTestCase {
 
         XCTAssertEqual(resultsController.numberOfObjects, 0)
     }
-
 
     /// Verifies that the ResultsController.predicate is effectively applied to the internal FRC
     ///
@@ -267,7 +254,7 @@ class ResultsControllerTests: XCTestCase {
     /// Verifies that the ResultsController.sortDescriptors is effectively applied to the internal FRC
     ///
     func testSortDescriptorsPropertyIsAppliedToInternalFRC() {
-        let ascendingSampleContent = [ "1", "2", "3" ]
+        let ascendingSampleContent = ["1", "2", "3"]
         for content in ascendingSampleContent {
             let note = storage.insertSampleNote()
             note.content = content
@@ -286,7 +273,7 @@ class ResultsControllerTests: XCTestCase {
 
         let reversedSortDescriptor = NSSortDescriptor(key: #selector(getter: Note.content).description, ascending: false)
 
-        resultsController.sortDescriptors = [ reversedSortDescriptor ]
+        resultsController.sortDescriptors = [reversedSortDescriptor]
         try? resultsController.performFetch()
 
         for (index, note) in resultsController.fetchedObjects.reversed().enumerated() {

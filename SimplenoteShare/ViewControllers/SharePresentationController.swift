@@ -1,8 +1,6 @@
 import UIKit
 
-
 class SharePresentationController: UIViewController {
-
     private let extensionTransitioningManager: ExtensionTransitioningManager = {
         let manager = ExtensionTransitioningManager()
         manager.presentDirection = .bottom
@@ -25,11 +23,10 @@ class SharePresentationController: UIViewController {
     }
 }
 
-
 // MARK: - Private Helpers
+
 //
 private extension SharePresentationController {
-
     func loadAndPresentMainVC() {
         let shareController = ShareViewController(context: extensionContext)
         shareController.dismissalCompletionBlock = {
@@ -44,11 +41,10 @@ private extension SharePresentationController {
     }
 }
 
-
 // MARK: - Appearance Helpers
+
 //
 private extension SharePresentationController {
-
     func setupAppearance() {
         guard #available(iOS 13, *) else {
             setupAppearanceIOS10()
@@ -67,14 +63,14 @@ private extension SharePresentationController {
         appearance.isTranslucent = false
     }
 
-    @available (iOS 12, *)
+    @available(iOS 12, *)
     func setupAppearanceIOS12() {
         let appearance = UINavigationBar.appearance()
         appearance.barTintColor = .simplenoteBackgroundColor
         appearance.barStyle = .default
         appearance.tintColor = .simplenoteTintColor
         appearance.titleTextAttributes = [
-            .foregroundColor: UIColor.simplenoteNavigationBarTitleColor
+            .foregroundColor: UIColor.simplenoteNavigationBarTitleColor,
         ]
         appearance.isTranslucent = false
     }

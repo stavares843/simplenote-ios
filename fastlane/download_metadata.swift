@@ -35,12 +35,12 @@ func downloadTranslation(languageCode: String, folderName: String) {
     let urlRequest: URLRequest = URLRequest(url: requestURL)
     let session = URLSession.shared
 
-    let sema = DispatchSemaphore( value: 0)
+    let sema = DispatchSemaphore(value: 0)
 
     print("Downloading Language: \(languageCode)")
-	
+
     let task = session.dataTask(with: urlRequest) {
-        (data, response, error) -> Void in
+        (data, _, error) -> Void in
 
         defer {
             sema.signal()
@@ -53,8 +53,8 @@ func downloadTranslation(languageCode: String, folderName: String) {
 
         guard let json = try? JSONSerialization.jsonObject(with: data, options: []),
             let jsonDict = json as? [String: Any] else {
-                print("  JSON was not returned")
-                return
+            print("  JSON was not returned")
+            return
         }
 
         var subtitle: String?
@@ -62,24 +62,24 @@ func downloadTranslation(languageCode: String, folderName: String) {
         var keywords: String?
         var storeDescription: String?
 
-        jsonDict.forEach({ (key: String, value: Any) in
+        jsonDict.forEach { (key: String, value: Any) in
 
             guard let index = key.index(of: Character(UnicodeScalar(0004))) else {
-            	return
+                return
             }
 
             let keyFirstPart = String(key[..<index])
 
             guard let value = value as? [String],
                 let firstValue = value.first else {
-                    print("  No translation for \(keyFirstPart)")
-                    return
+                print("  No translation for \(keyFirstPart)")
+                return
             }
 
             var originalLanguage = String(key[index...])
             originalLanguage.remove(at: originalLanguage.startIndex)
             let translation = languageCode == "en-us" ? originalLanguage : firstValue
-            
+
             switch keyFirstPart {
             case glotPressSubtitleKey:
                 subtitle = translation
@@ -92,7 +92,7 @@ func downloadTranslation(languageCode: String, folderName: String) {
             default:
                 print("  Unknown key: \(keyFirstPart)")
             }
-        })
+        }
 
         let languageFolder = "\(baseFolder)/\(folderName)"
 
@@ -108,22 +108,20 @@ func downloadTranslation(languageCode: String, folderName: String) {
             print("  Error writing: \(error)")
         }
     }
-    
+
     task.resume()
     sema.wait()
 }
 
 func deleteExistingMetadata() {
     let fileManager = FileManager.default
-	let url = URL(fileURLWithPath: baseFolder, isDirectory: true)
-	try? fileManager.removeItem(at: url)	
-	try? fileManager.createDirectory(at: url, withIntermediateDirectories: false)
+    let url = URL(fileURLWithPath: baseFolder, isDirectory: true)
+    try? fileManager.removeItem(at: url)
+    try? fileManager.createDirectory(at: url, withIntermediateDirectories: false)
 }
-
 
 deleteExistingMetadata()
 
-languages.forEach( { (key: String, value: String) in
+languages.forEach { (key: String, value: String) in
     downloadTranslation(languageCode: value, folderName: key)
-})
-
+}

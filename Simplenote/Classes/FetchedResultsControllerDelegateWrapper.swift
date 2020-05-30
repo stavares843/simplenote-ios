@@ -1,11 +1,10 @@
-import Foundation
 import CoreData
-
+import Foundation
 
 // MARK: - FetchedResultsControllerDelegateWrapper
+
 //
 class FetchedResultsControllerDelegateWrapper: NSObject {
-
     /// Relays FRC's Delegate: `controllerWillChangeContent`
     ///
     var onWillChangeContent: (() -> Void)?
@@ -23,20 +22,19 @@ class FetchedResultsControllerDelegateWrapper: NSObject {
     var onDidChangeSection: ((_ sectionInfo: NSFetchedResultsSectionInfo, _ sectionIndex: Int, _ type: NSFetchedResultsChangeType) -> Void)?
 }
 
-
 // MARK: - NSFetchedResultsControllerDelegate Conformance
+
 //
 extension FetchedResultsControllerDelegateWrapper: NSFetchedResultsControllerDelegate {
-
-    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+    func controllerWillChangeContent(_: NSFetchedResultsController<NSFetchRequestResult>) {
         onWillChangeContent?()
     }
 
-    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+    func controllerDidChangeContent(_: NSFetchedResultsController<NSFetchRequestResult>) {
         onDidChangeContent?()
     }
 
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
+    func controller(_: NSFetchedResultsController<NSFetchRequestResult>,
                     didChange anObject: Any,
                     at indexPath: IndexPath?,
                     for type: NSFetchedResultsChangeType,
@@ -44,7 +42,7 @@ extension FetchedResultsControllerDelegateWrapper: NSFetchedResultsControllerDel
         onDidChangeObject?(anObject, type, indexPath, newIndexPath)
     }
 
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
+    func controller(_: NSFetchedResultsController<NSFetchRequestResult>,
                     didChange sectionInfo: NSFetchedResultsSectionInfo,
                     atSectionIndex sectionIndex: Int,
                     for type: NSFetchedResultsChangeType) {

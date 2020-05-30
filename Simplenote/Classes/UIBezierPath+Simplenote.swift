@@ -1,11 +1,10 @@
 import Foundation
 import UIKit
 
-
 // MARK: - UIBezierPath Methods
+
 //
 extension UIBezierPath {
-
     /// Returns an UIImage representation of the receiver.
     ///
     func imageRepresentation(color: UIColor) -> UIImage {

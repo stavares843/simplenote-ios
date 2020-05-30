@@ -1,11 +1,10 @@
 import Foundation
 import UIKit
 
-
 // MARK: - UISearchBar Simplenote Methods
+
 //
 extension UISearchBar {
-
     /// Applies Simplenote's Style
     ///
     @objc

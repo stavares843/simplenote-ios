@@ -1,11 +1,10 @@
 import Foundation
 import UIKit
 
-
 // MARK: - UIAlertController's Simplenote Methods
+
 //
 extension UIViewController {
-
     /// Presents the receiver from the RootViewController's leaf
     ///
     @objc

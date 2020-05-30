@@ -1,11 +1,10 @@
 import Foundation
 
-
 // MARK: - Represents all of the possible Sort Modes
+
 //
 @objc
 enum SortMode: Int, CaseIterable {
-
     /// Order: A-Z
     ///
     case alphabeticallyAscending

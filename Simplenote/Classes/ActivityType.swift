@@ -1,10 +1,9 @@
 import Foundation
 
-
 // MARK: - Simplenote's User Activities
+
 //
 enum ActivityType: String {
-
     /// Launch Simplenote Activity
     ///
     case launch = "com.codality.NotationalFlow.launch"

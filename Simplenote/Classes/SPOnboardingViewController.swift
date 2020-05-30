@@ -1,12 +1,11 @@
 import Foundation
-import UIKit
 import SafariServices
-
+import UIKit
 
 // MARK: - SPOnboardingViewController
+
 //
 class SPOnboardingViewController: UIViewController, SPAuthenticationInterface {
-
     /// Top Image
     ///
     @IBOutlet var simplenoteImageView: UIImageView!
@@ -31,7 +30,6 @@ class SPOnboardingViewController: UIViewController, SPAuthenticationInterface {
     ///
     var authenticator: SPAuthenticator?
 
-
     // MARK: - Overriden Properties
 
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
@@ -41,7 +39,6 @@ class SPOnboardingViewController: UIViewController, SPAuthenticationInterface {
     override var shouldAutorotate: Bool {
         return false
     }
-
 
     // MARK: - Overridden Methods
 
@@ -61,11 +58,10 @@ class SPOnboardingViewController: UIViewController, SPAuthenticationInterface {
     }
 }
 
-
 // MARK: - Private
+
 //
 private extension SPOnboardingViewController {
-
     func setupNavigationItem() {
         navigationItem.backBarButtonItem = UIBarButtonItem(title: String(), style: .plain, target: nil, action: nil)
     }
@@ -105,11 +101,10 @@ private extension SPOnboardingViewController {
     }
 }
 
-
 // MARK: - Actions
+
 //
 private extension SPOnboardingViewController {
-
     @IBAction func signupWasPressed() {
         presentAuthenticationInterface(mode: .signup)
     }
@@ -150,11 +145,10 @@ private extension SPOnboardingViewController {
     }
 }
 
-
 // MARK: - Actions
+
 //
 private extension SPOnboardingViewController {
-
     func startListeningToNotifications() {
         let name = NSNotification.Name(rawValue: kSignInErrorNotificationName)
 
@@ -171,11 +165,10 @@ private extension SPOnboardingViewController {
         presentedViewController?.dismiss(animated: true, completion: nil)
         present(alertController, animated: true, completion: nil)
     }
-
 }
 
-
 // MARK: - Private Types
+
 //
 private struct OnboardingStrings {
     static let brandText = NSLocalizedString("Simplenote", comment: "Our mighty brand!")
@@ -185,7 +178,6 @@ private struct OnboardingStrings {
     static let loginWithEmailText = NSLocalizedString("Log in with email", comment: "Presents the regular Email signin flow")
     static let loginWithWpcomText = NSLocalizedString("Log in with WordPress.com", comment: "Allows the user to SignIn using their WPCOM Account")
 }
-
 
 private struct SignInError {
     static let title = NSLocalizedString("Couldn't Sign In", comment: "Alert dialog title displayed on sign in error")

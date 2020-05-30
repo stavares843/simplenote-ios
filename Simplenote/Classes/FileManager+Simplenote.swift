@@ -1,10 +1,9 @@
 import Foundation
 
-
 // MARK: - Paths
+
 //
 extension FileManager {
-
     /// User's Document Directory
     ///
     class var documentsURL: URL {

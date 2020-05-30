@@ -1,7 +1,7 @@
 import Foundation
 
-
 // MARK: - NotesListFilter
+
 //
 enum NotesListFilter {
     case everything
@@ -10,14 +10,13 @@ enum NotesListFilter {
     case tag(name: String)
 }
 
-
 // MARK: - NotesListFilter: Public API
+
 //
 extension NotesListFilter {
-
     /// Initializes the ListFilter for a given `selectedTag`
     ///
-    /// TODO: As of now, Simplenote keeps track of the selectedTag as a string, in the AppDelegate.
+    // TODO: As of now, Simplenote keeps track of the selectedTag as a string, in the AppDelegate.
     /// Once we've Swifted enough (AppDelegate + TagListViewController), remove this initializer.
     ///
     init(selectedTag: String?) {
@@ -36,7 +35,6 @@ extension NotesListFilter {
         }
     }
 
-
     /// Filter's visible Title
     ///
     var title: String {
@@ -47,16 +45,16 @@ extension NotesListFilter {
             return NSLocalizedString("Trash-noun", comment: "Title: Trash Tag is selected")
         case .untagged:
             return NSLocalizedString("Untagged", comment: "Title: Untagged Notes are onscreen")
-        case .tag(let name):
+        case let .tag(name):
             return name
         }
     }
 }
 
-
 // MARK: - Equality
+
 //
-func ==(lhs: NotesListFilter, rhs: NotesListFilter) -> Bool {
+func == (lhs: NotesListFilter, rhs: NotesListFilter) -> Bool {
     switch (lhs, rhs) {
     case (.everything, .everything), (.deleted, .deleted), (.untagged, .untagged):
         return true
@@ -67,6 +65,6 @@ func ==(lhs: NotesListFilter, rhs: NotesListFilter) -> Bool {
     }
 }
 
-func !=(lhs: NotesListFilter, rhs: NotesListFilter) -> Bool {
+func != (lhs: NotesListFilter, rhs: NotesListFilter) -> Bool {
     return !(lhs == rhs)
 }

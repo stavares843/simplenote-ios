@@ -1,9 +1,7 @@
 import Foundation
 import UIKit
 
-
 extension UIAlertController {
-
     @discardableResult @objc
     func addCancelActionWithTitle(_ title: String?, handler: ((UIAlertAction) -> Void)? = nil) -> UIAlertAction {
         return addActionWithTitle(title, style: .cancel, handler: handler)

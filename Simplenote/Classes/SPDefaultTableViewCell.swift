@@ -7,11 +7,10 @@
 
 import Foundation
 
-
 // MARK: - UITableViewCell with the `.default` Style
+
 //
 class SPDefaultTableViewCell: UITableViewCell {
-
     /// UITableView's Reusable Identifier
     ///
     static let reusableIdentifier = "SPDefaultTableViewCell"
@@ -31,11 +30,10 @@ class SPDefaultTableViewCell: UITableViewCell {
     }
 }
 
-
 // MARK: - Private
+
 //
 private extension SPDefaultTableViewCell {
-
     func applySimplenoteStyle() {
         let backgroundView = UIView()
         backgroundView.backgroundColor = .simplenoteLightBlueColor

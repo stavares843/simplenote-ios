@@ -1,11 +1,9 @@
 import Foundation
 import UIKit
 
-
 /// Bundle: Simplenote Methods
 ///
 extension Bundle {
-
     /// Returns the Bundle Short Version String.
     ///
     @objc
